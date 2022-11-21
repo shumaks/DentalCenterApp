@@ -2,6 +2,7 @@ package com.bsuir.dentalcenterapp.services
 
 import com.bsuir.dentalcenterapp.models.*
 import io.reactivex.Observable
+import retrofit2.Call
 import retrofit2.http.*
 
 interface RetrofitServices {
@@ -10,7 +11,7 @@ interface RetrofitServices {
     fun getPatientsList(): Observable<ResponsePatientModel>
 
     @POST("patients")
-    fun addPatient(@Body patient: PatientRequest): Observable<ResponsePOSTPatientModel>
+    fun addPatient(@Body patient: PatientRequest): Call<Any>
 
     @DELETE
     fun deletePatient(@Url url: String): Observable<ResponseStatusPatientModel>
@@ -22,5 +23,5 @@ interface RetrofitServices {
     fun getAppointmentsList(): Observable<AppointmentResponse>
 
     @POST("appointments")
-    fun addAppointment(@Body appointment: AppointmentRequest): Observable<ResponsePOSTAppointmentModel>
+    fun addAppointment(@Body appointment: AppointmentRequest): Call<Any>
 }

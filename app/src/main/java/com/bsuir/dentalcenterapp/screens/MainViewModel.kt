@@ -4,14 +4,16 @@ import androidx.lifecycle.ViewModel
 import com.bsuir.dentalcenterapp.models.AppointmentRequest
 import com.bsuir.dentalcenterapp.models.PatientRequest
 import com.bsuir.dentalcenterapp.repo.AppointmentsRepo
+import com.bsuir.dentalcenterapp.repo.PatientsRepo
 import com.bsuir.dentalcenterapp.services.RetrofitClient
 import com.bsuir.dentalcenterapp.services.RetrofitServices
 
 class MainViewModel : ViewModel() {
     private val retrofitService = RetrofitClient.getClient(BASE_URL).create(RetrofitServices::class.java)
     private val appointmentsRepo = AppointmentsRepo()
+    private val patientsRepo = PatientsRepo()
 
-    fun getPatients() = retrofitService.getPatientsList()
+    fun getPatients() = patientsRepo.getPatients()
 
     fun addPatient(body: PatientRequest) = retrofitService.addPatient(body)
 

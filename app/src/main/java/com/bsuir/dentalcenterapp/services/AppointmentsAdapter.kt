@@ -4,25 +4,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bsuir.dentalcenterapp.models.AppointmentModel
+import com.bsuir.dentalcenterapp.App.Companion.context
+import com.bsuir.dentalcenterapp.models.Appointment
+import com.bsuir.dentalcenterapp.models.AppointmentResponseData
 import com.itexus.dentalcenterapp.R
 
 class AppointmentsAdapter(
-    private val dataSet: List<AppointmentModel>
+    private val dataSet: List<AppointmentResponseData>
 ) : RecyclerView.Adapter<AppointmentsAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val date: TextView
-        val fullname: TextView
-        val diagnosis: TextView
-        val time: TextView
+        val recyclerView: RecyclerView
 
         init {
             date = view.findViewById(R.id.date)
-            fullname = view.findViewById(R.id.fullname)
-            diagnosis = view.findViewById(R.id.diagnosis)
-            time = view.findViewById(R.id.time)
+            recyclerView = view.findViewById(R.id.appointments_recycler_view_by_date)
         }
     }
 
@@ -34,10 +33,10 @@ class AppointmentsAdapter(
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.date.text = dataSet[position].date
-        viewHolder.fullname.text = dataSet[position].fullname
-        viewHolder.diagnosis.text = dataSet[position].diagnosis
-        viewHolder.time.text = dataSet[position].time
+        viewHolder.date.text = dataSet[position].title
+        viewHolder.recyclerView.layoutManager = LinearLayoutManager(context)
+        val appointments = dataSet[position].data
+        viewHolder.recyclerView.adapter = AppointmentsByDateAdapter(appointments)
     }
 
     override fun getItemCount() = dataSet.size
