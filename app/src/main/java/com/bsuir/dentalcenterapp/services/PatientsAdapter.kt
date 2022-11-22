@@ -3,15 +3,23 @@ package com.bsuir.dentalcenterapp.services
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bsuir.dentalcenterapp.models.Patient
 import com.itexus.dentalcenterapp.R
+import java.lang.Character.toLowerCase
+import java.util.*
+import kotlin.collections.ArrayList
 
 class PatientsAdapter(
     private val dataSet: MutableList<Patient>,
     private val onPatientClickListener: OnPatientClickListener
 ) : RecyclerView.Adapter<PatientsAdapter.ViewHolder>() {
+
+    val initialDataSet = ArrayList<Patient>().apply {
+        addAll(dataSet)
+    }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val fullname: TextView
@@ -45,6 +53,37 @@ class PatientsAdapter(
     }
 
     override fun getItemCount() = dataSet.size
+
+    fun getFilter(): Filter {
+        return patientsFilter
+    }
+
+    private val patientsFilter = object : Filter() {
+        override fun performFiltering(constraint: CharSequence?): FilterResults {
+            val filteredList: ArrayList<Patient> = ArrayList()
+            if (constraint == null || constraint.isEmpty()) {
+                initialDataSet.let { filteredList.addAll(it) }
+            } else {
+                val query = constraint.toString().trim().toLowerCase()
+                initialDataSet.forEach {
+                    if (it.fullName.toLowerCase(Locale.ROOT).contains(query) || it.phone.contains(query)) {
+                        filteredList.add(it)
+                    }
+                }
+            }
+            val results = FilterResults()
+            results.values = filteredList
+            return results
+        }
+
+        override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+            if (results?.values is ArrayList<*>) {
+                dataSet.clear()
+                dataSet.addAll(results.values as Collection<Patient>)
+                notifyDataSetChanged()
+            }
+        }
+    }
 
     fun addData(data: List<Patient>) {
         dataSet.clear()

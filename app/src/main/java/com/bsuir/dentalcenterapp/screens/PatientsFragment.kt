@@ -3,7 +3,7 @@ package com.bsuir.dentalcenterapp.screens
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
+import android.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +18,7 @@ class PatientsFragment : Fragment() {
 
     private val viewModel: MainViewModel = MainViewModel()
     private lateinit var recyclerView: RecyclerView
+    private lateinit var searchView: SearchView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +36,7 @@ class PatientsFragment : Fragment() {
         }
 
         recyclerView = root.findViewById(R.id.patients_recycler_view)
+        searchView = root.findViewById(R.id.search_view)
 
         return root
     }
@@ -44,7 +46,6 @@ class PatientsFragment : Fragment() {
 
         recyclerView.layoutManager = LinearLayoutManager(activity)
         val patients = viewModel.getPatients()
-
         val onPatientClickListener: PatientsAdapter.OnPatientClickListener = object : PatientsAdapter.OnPatientClickListener {
             override fun onClick(patient: Patient) {
                 val intent = Intent(activity, PatientCardActivity::class.java)
@@ -52,7 +53,21 @@ class PatientsFragment : Fragment() {
                 startActivity(intent, null)
             }
         }
+        val adapter = PatientsAdapter(patients.toMutableList(), onPatientClickListener)
 
-        recyclerView.adapter = PatientsAdapter(patients.toMutableList(), onPatientClickListener)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                adapter.getFilter().filter(query)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapter.getFilter().filter(newText);
+                return true
+            }
+
+        })
+
+        recyclerView.adapter = adapter
     }
 }
