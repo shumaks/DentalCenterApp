@@ -17,6 +17,8 @@ data class Appointment(
     val date: String,
     @SerializedName("time")
     val time: String,
+    @SerializedName("doctor")
+    val doctor: String,
     @SerializedName("createdAt")
     val createdAt: String,
     @SerializedName("updatedAt")

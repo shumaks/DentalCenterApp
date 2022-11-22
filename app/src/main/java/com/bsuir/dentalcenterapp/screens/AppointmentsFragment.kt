@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bsuir.dentalcenterapp.App
 import com.bsuir.dentalcenterapp.models.Appointment
 import com.bsuir.dentalcenterapp.models.AppointmentRequest
 import com.bsuir.dentalcenterapp.models.AppointmentResponseData
@@ -59,9 +60,18 @@ class AppointmentsFragment : Fragment() {
                 }
             }
 
-        viewModel.appointmentsLiveData.observeForever {
-            val appointments = it.sortByDate()
-            recyclerView.adapter = AppointmentsAdapter(appointments, onEditClickListener, onDeleteClickListener)
+        viewModel.appointmentsLiveData.observe(this) {
+            val filteredAppointments = mutableListOf<AppointmentResponseData>()
+            it.sortByDate().forEach { response ->
+                response.copy(data = response.data.filter {
+                    it.doctor == App.currentDoctor.id
+                }).let {
+                    if (it.data.isNotEmpty()) {
+                        filteredAppointments.add(response)
+                    }
+                }
+            }
+            recyclerView.adapter = AppointmentsAdapter(filteredAppointments, onEditClickListener, onDeleteClickListener)
         }
     }
 

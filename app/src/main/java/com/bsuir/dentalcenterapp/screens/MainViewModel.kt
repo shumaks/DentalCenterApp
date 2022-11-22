@@ -41,4 +41,8 @@ object MainViewModel : ViewModel() {
     fun updateAppointment(id: String, body: AppointmentRequest) = retrofitService.updateAppointment("appointments/$id", body)
 
     fun deleteAppointment(id: String) = retrofitService.deleteAppointment("appointments/$id").subscribeOn(Schedulers.io()).subscribe()
+
+    fun addDoctor(doctor: DoctorAddRequest) = retrofitService.addDoctor(doctor)
+
+    fun loginDoctor(doctor: DoctorLoginRequest) = retrofitService.loginDoctor(doctor)
 }

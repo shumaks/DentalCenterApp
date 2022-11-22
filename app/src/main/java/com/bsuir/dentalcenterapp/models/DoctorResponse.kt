@@ -2,7 +2,9 @@ package com.bsuir.dentalcenterapp.models
 
 import com.google.gson.annotations.SerializedName
 
-data class ResponsePOSTPatientModel(
+data class DoctorResponse(
     @SerializedName("status")
-    val status: String
+    val status: String,
+    @SerializedName("data")
+    val data: List<Doctor>
 )

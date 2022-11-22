@@ -54,7 +54,7 @@ class PatientsFragment : Fragment() {
             }
         }
 
-        viewModel.patientsLiveData.observeForever {
+        viewModel.patientsLiveData.observe(this) {
             val adapter = PatientsAdapter(it.toMutableList(), onPatientClickListener)
 
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

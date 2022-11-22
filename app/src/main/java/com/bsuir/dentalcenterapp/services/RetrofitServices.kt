@@ -14,10 +14,10 @@ interface RetrofitServices {
     fun addPatient(@Body patient: PatientRequest): Call<Any>
 
     @DELETE
-    fun deletePatient(@Url url: String): Observable<ResponseStatusPatientModel>
+    fun deletePatient(@Url url: String): Call<Any>
 
     @PATCH
-    fun updatePatient(@Url url: String, @Body patient: PatientRequest): Observable<ResponseStatusPatientModel>
+    fun updatePatient(@Url url: String, @Body patient: PatientRequest): Call<Any>
 
     @GET("appointments")
     fun getAppointmentsList(): Observable<AppointmentResponse>
@@ -30,4 +30,10 @@ interface RetrofitServices {
 
     @DELETE
     fun deleteAppointment(@Url url: String): Observable<Any>
+
+    @POST("doctors")
+    fun addDoctor(@Body doctor: DoctorAddRequest): Call<DoctorLoginResponse>
+
+    @POST("doctors/login")
+    fun loginDoctor(@Body doctor: DoctorLoginRequest): Call<DoctorLoginResponse>
 }

@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName
 data class AppointmentRequest(
     @SerializedName("patient")
     val patientId: String,
+    @SerializedName("doctor")
+    val doctorId: String,
     @SerializedName("dentNumber")
     val dentNumber: Int,
     @SerializedName("diagnosis")

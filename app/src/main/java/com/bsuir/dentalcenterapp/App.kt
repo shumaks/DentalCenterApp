@@ -3,6 +3,7 @@ package com.bsuir.dentalcenterapp
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
+import com.bsuir.dentalcenterapp.models.Doctor
 
 class App : Application() {
 
@@ -14,5 +15,7 @@ class App : Application() {
     companion object {
         @SuppressLint("StaticFieldLeak")
         lateinit var context: Context
+
+        lateinit var currentDoctor: Doctor
     }
 }

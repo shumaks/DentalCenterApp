@@ -7,7 +7,11 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.bsuir.dentalcenterapp.App
 import com.bsuir.dentalcenterapp.models.AppointmentRequest
+import com.bsuir.dentalcenterapp.utils.isDateCorrect
+import com.bsuir.dentalcenterapp.utils.isTimeCorrect
+import com.bsuir.dentalcenterapp.utils.isToothNumberCorrect
 import com.itexus.dentalcenterapp.R
 import retrofit2.Call
 import retrofit2.Callback
@@ -31,35 +35,44 @@ class AddAppointmentActivity : AppCompatActivity() {
         val price: EditText = findViewById(R.id.price)
         val date: EditText = findViewById(R.id.date)
         val time: EditText = findViewById(R.id.time)
-        val buttonAdd: Button = findViewById(R.id.buttonEditAppointment)
+        val buttonAdd: Button = findViewById(R.id.buttonAddAppointment)
 
         buttonAdd.setOnClickListener {
-            viewModel.addAppointment(
-                AppointmentRequest(
-                    id,
-                    toothNumber.text.toString().toInt(),
-                    diagnosis.text.toString(),
-                    price.text.toString().toInt(),
-                    date.text.toString(),
-                    time.text.toString()
-                )
-            ).enqueue(object : Callback<Any> {
+            if (!toothNumber.text.toString().isToothNumberCorrect()) {
+                Toast.makeText(this, "Некорректный номер зуба!", Toast.LENGTH_SHORT).show()
+            } else if (!date.text.toString().isDateCorrect()) {
+                Toast.makeText(this, "Некорректная дата!", Toast.LENGTH_SHORT).show()
+            } else if (!time.text.toString().isTimeCorrect()) {
+                Toast.makeText(this, "Некорректная дата!", Toast.LENGTH_SHORT).show()
+            } else {
+                viewModel.addAppointment(
+                    AppointmentRequest(
+                        id,
+                        App.currentDoctor.id,
+                        toothNumber.text.toString().toInt(),
+                        diagnosis.text.toString(),
+                        price.text.toString().toInt(),
+                        date.text.toString(),
+                        time.text.toString()
+                    )
+                ).enqueue(object : Callback<Any> {
 
-                override fun onResponse(call: Call<Any>, response: Response<Any>) {
-                    if (response.isSuccessful) {
-                        onBackPressed()
-                    } else {
-                        Toast.makeText(
-                            applicationContext,
-                            "Некорректные данные!",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                    override fun onResponse(call: Call<Any>, response: Response<Any>) {
+                        if (response.isSuccessful) {
+                            onBackPressed()
+                        } else {
+                            Toast.makeText(
+                                applicationContext,
+                                "Некорректные данные!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
-                }
 
-                override fun onFailure(call: Call<Any>, t: Throwable) {
-                }
-            })
+                    override fun onFailure(call: Call<Any>, t: Throwable) {
+                    }
+                })
+            }
         }
     }
 

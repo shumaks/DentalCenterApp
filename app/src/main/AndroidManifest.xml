@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -16,50 +16,59 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DentalCenterApp"
         android:usesCleartextTraffic="true"
-        tools:targetApi="33" >
+        tools:targetApi="33">
+        <activity
+            android:name="com.bsuir.dentalcenterapp.screens.RegisterActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name="com.bsuir.dentalcenterapp.screens.PatientsActivity"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name="com.bsuir.dentalcenterapp.screens.AddAppointmentActivity"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name="com.bsuir.dentalcenterapp.screens.EditAppointmentActivity"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
+        <activity
+            android:name="com.bsuir.dentalcenterapp.screens.EditPatientActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name="com.bsuir.dentalcenterapp.screens.FormulaActivity"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name="com.bsuir.dentalcenterapp.screens.PatientCardActivity"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name="com.bsuir.dentalcenterapp.screens.AddPatientActivity"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -71,7 +80,15 @@
 
         <activity
             android:name="com.bsuir.dentalcenterapp.screens.MainActivity"
-            android:exported="true" >
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+
+        </activity>
+        <activity
+            android:name="com.bsuir.dentalcenterapp.screens.LoginActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

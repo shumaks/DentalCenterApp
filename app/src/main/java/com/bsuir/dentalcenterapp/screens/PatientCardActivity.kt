@@ -7,21 +7,31 @@ import android.view.*
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bsuir.dentalcenterapp.App
 import com.bsuir.dentalcenterapp.models.Appointment
+import com.bsuir.dentalcenterapp.models.Patient
 import com.bsuir.dentalcenterapp.services.PatientsAppointmentsAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.itexus.dentalcenterapp.R
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class PatientCardActivity : AppCompatActivity() {
 
     private val viewModel = MainViewModel
     private lateinit var recyclerView: RecyclerView
+    private lateinit var fullNameTextView: TextView
+    private lateinit var phone: TextView
+    private lateinit var buttonCall: ImageView
     private var id: String? = ""
+    private lateinit var patient: Patient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,21 +42,16 @@ class PatientCardActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         id = intent.getStringExtra("id")
-        val patient = viewModel.getPatients().first { it.id == id }
 
-        val fullNameTextView: TextView = findViewById(R.id.fullname)
-        val phone: TextView = findViewById(R.id.phone)
-        val buttonCall: ImageView = findViewById(R.id.button_call)
+        fullNameTextView = findViewById(R.id.fullname)
+        phone = findViewById(R.id.phone)
         recyclerView = findViewById(R.id.recyclerViewPatientAppointment)
+        buttonCall = findViewById(R.id.button_call)
         val buttonAddAppointment: FloatingActionButton = findViewById(R.id.add_appointment_button)
         val buttonFormula: Button = findViewById(R.id.buttonFormula)
+        val buttonEdit: Button = findViewById(R.id.buttonEdit)
+        val buttonDelete: Button = findViewById(R.id.buttonDelete)
 
-        fullNameTextView.text = patient?.fullName
-        phone.text = patient?.phone
-        buttonCall.setOnClickListener {
-            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:${patient?.phone}"))
-            startActivity(intent)
-        }
         buttonAddAppointment.setOnClickListener {
             val intent = Intent(this, AddAppointmentActivity::class.java)
             intent.putExtra("id", id)
@@ -57,22 +62,65 @@ class PatientCardActivity : AppCompatActivity() {
             intent.putExtra("id", id)
             startActivity(intent, null)
         }
+        buttonEdit.setOnClickListener {
+            val intent = Intent(this, EditPatientActivity::class.java)
+            intent.putExtra("id", id)
+            startActivity(intent, null)
+        }
+        buttonDelete.setOnClickListener {
+            id?.let { it ->
+                viewModel.deletePatient(it).enqueue(object : Callback<Any> {
+
+                    override fun onResponse(call: Call<Any>, response: Response<Any>) {
+                        onBackPressed()
+                    }
+
+                    override fun onFailure(call: Call<Any>, t: Throwable) {
+                    }
+                })
+            }
+            viewModel.getAppointments().forEach {
+                it.data.forEach {
+                    if (it.patient.id == id) {
+                        viewModel.deleteAppointment(it.id)
+                    }
+                }
+            }
+        }
     }
 
     override fun onResume() {
         super.onResume()
+        viewModel.observePatients()
+        viewModel.patientsLiveData.observe(this) {
+            try {
+                patient = viewModel.getPatients().first { it.id == id }
 
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        val appointments = mutableListOf<Appointment>()
-        viewModel.getAppointments().forEach {
-            it.data.forEach {
-                if (it.patient.id == id) {
-                    appointments.add(it)
+                fullNameTextView.text = patient.fullName
+                phone.text = patient.phone
+                buttonCall.setOnClickListener {
+                    val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:${patient.phone}"))
+                    startActivity(intent)
                 }
+            } catch (e: NoSuchElementException) {
+
             }
         }
 
-        recyclerView.adapter = PatientsAppointmentsAdapter(appointments)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        viewModel.observeAppointments()
+
+        viewModel.appointmentsLiveData.observe(this) {
+            val appointments = mutableListOf<Appointment>()
+            viewModel.getAppointments().forEach {
+                it.data.forEach {
+                    if (it.patient.id == id && it.doctor == App.currentDoctor.id) {
+                        appointments.add(it)
+                    }
+                }
+            }
+            recyclerView.adapter = PatientsAppointmentsAdapter(appointments)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
