@@ -30,7 +30,7 @@ class AppointmentsFragment : Fragment() {
     ): View {
         val root = inflater.inflate(R.layout.fragment_appointments, container, false) as ViewGroup
         val toolbar: Toolbar = root.findViewById(R.id.toolbar) as Toolbar
-        toolbar.title = "Журнал приёмов"
+        toolbar.title = getString(R.string.appointments_log)
         (activity as MainActivity).setSupportActionBar(toolbar)
 
         recyclerView = root.findViewById(R.id.appointments_recycler_view)
@@ -114,18 +114,18 @@ class AppointmentsFragment : Fragment() {
             splittedString.first()
         }
         val month = when (splittedString[1]) {
-            "01" -> "января"
-            "02" -> "февраля"
-            "03" -> "марта"
-            "04" -> "апреля"
-            "05" -> "мая"
-            "06" -> "июня"
-            "07" -> "июля"
-            "08" -> "августа"
-            "09" -> "сентября"
-            "10" -> "октября"
-            "11" -> "ноября"
-            else -> "декабря"
+            "01" -> getString(R.string.january)
+            "02" -> getString(R.string.february)
+            "03" -> getString(R.string.march)
+            "04" -> getString(R.string.april)
+            "05" -> getString(R.string.may)
+            "06" -> getString(R.string.june)
+            "07" -> getString(R.string.july)
+            "08" -> getString(R.string.august)
+            "09" -> getString(R.string.september)
+            "10" -> getString(R.string.october)
+            "11" -> getString(R.string.november)
+            else -> getString(R.string.december)
         }
         return "$day $month"
     }

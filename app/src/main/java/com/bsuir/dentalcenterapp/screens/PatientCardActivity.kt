@@ -38,7 +38,7 @@ class PatientCardActivity : AppCompatActivity() {
         setContentView(R.layout.activity_patient_card)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
-        toolbar.title = "Карта пациента"
+        toolbar.title = getString(R.string.patient_card)
         setSupportActionBar(toolbar)
 
         id = intent.getStringExtra("id")

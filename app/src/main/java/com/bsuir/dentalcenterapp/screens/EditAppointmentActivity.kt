@@ -30,7 +30,7 @@ class EditAppointmentActivity : AppCompatActivity() {
         setContentView(R.layout.activity_edit_appointment)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
-        toolbar.title = "Изменить прием"
+        toolbar.title = getString(R.string.edit_appointment)
         setSupportActionBar(toolbar)
 
         val id = intent.getStringExtra("id")!!
@@ -57,11 +57,11 @@ class EditAppointmentActivity : AppCompatActivity() {
 
         buttonSave.setOnClickListener {
             if (!toothNumber.text.toString().isToothNumberCorrect()) {
-                Toast.makeText(this, "Некорректный номер зуба!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.incorrect_tooth_number), Toast.LENGTH_SHORT).show()
             } else if (!date.text.toString().isDateCorrect()) {
-                Toast.makeText(this, "Некорректная дата!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.incorrect_date), Toast.LENGTH_SHORT).show()
             } else if (!time.text.toString().isTimeCorrect()) {
-                Toast.makeText(this, "Некорректная дата!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.incorrect_time), Toast.LENGTH_SHORT).show()
             } else {
                 viewModel.updateAppointment(
                     appointment.id,
@@ -82,7 +82,7 @@ class EditAppointmentActivity : AppCompatActivity() {
                         } else {
                             Toast.makeText(
                                 applicationContext,
-                                "Некорректные данные!",
+                                getString(R.string.incorrect_data),
                                 Toast.LENGTH_SHORT
                             ).show()
                         }

@@ -8,14 +8,14 @@
         android:id="@+id/tooth_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Зуб: "
+        android:text="@string/teeth"
         android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/diagnosis"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Диагноз: "
+        android:text="@string/diagnosis2"
         android:textColor="@color/black" />
 
     <LinearLayout
@@ -27,14 +27,14 @@
             android:id="@+id/date_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Дата и время"
+            android:text="@string/date_time"
             android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Цена"
+            android:text="@string/price"
             android:textColor="@color/black" />
     </LinearLayout>
 

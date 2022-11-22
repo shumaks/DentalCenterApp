@@ -18,13 +18,13 @@
 
             <TextView
                 android:id="@+id/fullname"
-                android:text="Fullname"
+                android:text="@string/fullname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/diagnosis"
-                android:text="Diagnosis"
+                android:text="@string/diagnosis"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -32,7 +32,7 @@
 
         <TextView
             android:id="@+id/time"
-            android:text="Time"
+            android:text="@string/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

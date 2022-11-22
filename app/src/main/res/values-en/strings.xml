@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Dental center</string>
+    <string name="lang">EN</string>
+
+    <string name="tooth_number">Tooth number</string>
+    <string name="diagnosis">Diagnosis</string>
+    <string name="price">Price</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="add">Add</string>
+    <string name="fullname">Fullname</string>
+    <string name="phone">Phone</string>
+
+    <string name="save">Save</string>
+    <string name="email">E-mail</string>
+    <string name="password">Password</string>
+    <string name="enter">Enter</string>
+    <string name="register">Register</string>
+    <string name="appointments">Appointments</string>
+    <string name="teeth_formula">Teeth formula</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+
+    <string name="teeth">Teeth: </string>
+    <string name="diagnosis2">Diagnosis: </string>
+    <string name="date_time">Date and time</string>
+
+    <string name="add_appointment">Add appointment</string>
+    <string name="incorrect_tooth_number">Incorrect tooth number!</string>
+    <string name="incorrect_date">Incorrect date!</string>
+    <string name="incorrect_time">Incorrect time!</string>
+    <string name="incorrect_data">Incorrect data!</string>
+    <string name="incorrect_login">Incorrect login!</string>
+    <string name="add_patient">Add patient</string>
+    <string name="incorrect_fullname_phone">Incorrect fullname and phone!</string>
+    <string name="appointments_log">Appointments log</string>
+    <string name="edit_appointment">Edit appointment</string>
+    <string name="edit_patient">Edit patient</string>
+    <string name="patient_card">Patient card</string>
+    <string name="patients">Patients</string>
+
+    <string name="january">january</string>
+    <string name="february">february</string>
+    <string name="march">march</string>
+    <string name="april">april</string>
+    <string name="may">may</string>
+    <string name="june">june</string>
+    <string name="july">july</string>
+    <string name="august">august</string>
+    <string name="september">september</string>
+    <string name="october">october</string>
+    <string name="november">november</string>
+    <string name="december">december</string>
+</resources>

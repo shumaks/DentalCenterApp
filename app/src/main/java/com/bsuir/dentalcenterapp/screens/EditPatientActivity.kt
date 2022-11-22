@@ -28,7 +28,7 @@ class EditPatientActivity : AppCompatActivity() {
         setContentView(R.layout.activity_edit_patient)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
-        toolbar.title = "Изменить пациента"
+        toolbar.title = getString(R.string.edit_patient)
         setSupportActionBar(toolbar)
 
         val id = intent.getStringExtra("id")!!
@@ -60,7 +60,7 @@ class EditPatientActivity : AppCompatActivity() {
                     } else {
                         Toast.makeText(
                             applicationContext,
-                            "Некорректные данные!",
+                            getString(R.string.incorrect_data),
                             Toast.LENGTH_SHORT
                         ).show()
                     }

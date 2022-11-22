@@ -3,12 +3,16 @@ package com.bsuir.dentalcenterapp.screens
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import com.bsuir.dentalcenterapp.App
 import com.bsuir.dentalcenterapp.models.DoctorLoginRequest
 import com.bsuir.dentalcenterapp.models.DoctorLoginResponse
+import com.bsuir.dentalcenterapp.utils.LocaleHelper
 import com.itexus.dentalcenterapp.R
 import retrofit2.Call
 import retrofit2.Callback
@@ -21,6 +25,10 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        toolbar.title = getString(R.string.app_name)
+        setSupportActionBar(toolbar)
 
         val login: EditText = findViewById(R.id.login)
         val password: EditText = findViewById(R.id.password)
@@ -47,14 +55,14 @@ class LoginActivity : AppCompatActivity() {
                         } else {
                             Toast.makeText(
                                 applicationContext,
-                                "Некорректные данные!",
+                                getString(R.string.incorrect_data),
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
                     } else {
                         Toast.makeText(
                             applicationContext,
-                            "Некорректные данные!",
+                            getString(R.string.incorrect_data),
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -68,6 +76,33 @@ class LoginActivity : AppCompatActivity() {
         buttonRegister.setOnClickListener {
             val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
             startActivity(intent, null)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_locale, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.action_lang -> {
+            if (item.title == "RU") {
+                item.title = "EN"
+                LocaleHelper.setLocale(this,"en")
+            } else {
+                item.title = "RU"
+                LocaleHelper.setLocale(this,"ru")
+            }
+
+            finish()
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent, null)
+
+            true
+        }
+
+        else -> {
+            super.onOptionsItemSelected(item)
         }
     }
 }

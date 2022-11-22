@@ -27,7 +27,7 @@ class AddPatientActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_patient)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
-        toolbar.title = "Добавить пациента"
+        toolbar.title = getString(R.string.add_patient)
         setSupportActionBar(toolbar)
 
         val fullName: EditText = findViewById(R.id.fullname)
@@ -48,7 +48,7 @@ class AddPatientActivity : AppCompatActivity() {
                     } else {
                         Toast.makeText(
                             applicationContext,
-                            "Некорректные ФИО или номер телефона!",
+                            getString(R.string.incorrect_fullname_phone),
                             Toast.LENGTH_SHORT
                         ).show()
                     }

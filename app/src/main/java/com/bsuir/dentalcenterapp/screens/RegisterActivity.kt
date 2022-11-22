@@ -33,7 +33,7 @@ class RegisterActivity : AppCompatActivity() {
             if (!login.text.toString().isLoginCorrect()) {
                 Toast.makeText(
                     applicationContext,
-                    "Некорректный логин!",
+                    getString(R.string.incorrect_login),
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
@@ -57,14 +57,14 @@ class RegisterActivity : AppCompatActivity() {
                             } else {
                                 Toast.makeText(
                                     applicationContext,
-                                    "Некорректные данные!",
+                                    getString(R.string.incorrect_data),
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
                         } else {
                             Toast.makeText(
                                 applicationContext,
-                                "Некорректные данные!",
+                                getString(R.string.incorrect_data),
                                 Toast.LENGTH_SHORT
                             ).show()
                         }

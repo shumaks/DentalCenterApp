@@ -1,14 +1,54 @@
 <resources>
-    <string name="app_name">DentalCenterApp</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_main2">MainActivity2</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="app_name">Стамотологический центр</string>
+    <string name="lang">RU</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="tooth_number">Номер зуба</string>
+    <string name="diagnosis">Диагноз</string>
+    <string name="price">Цена</string>
+    <string name="date">Дата</string>
+    <string name="time">Время</string>
+    <string name="add">Добавить</string>
+    <string name="fullname">Фамилия и имя</string>
+    <string name="phone">Номер телефона</string>
+
+    <string name="save">Сохранить</string>
+    <string name="email">Почта</string>
+    <string name="password">Пароль</string>
+    <string name="enter">Войти</string>
+    <string name="register">Регистрация</string>
+    <string name="appointments">Приемы</string>
+    <string name="teeth_formula">Формула зубов</string>
+    <string name="edit">Изменить</string>
+    <string name="delete">Удалить</string>
+
+    <string name="teeth">Зуб: </string>
+    <string name="diagnosis2">Диагноз: </string>
+    <string name="date_time">Дата и время</string>
+
+    <string name="add_appointment">Добавить прием</string>
+    <string name="incorrect_tooth_number">Некорректный номер зуба!</string>
+    <string name="incorrect_date">Некорректная дата!</string>
+    <string name="incorrect_time">Некорректное время!</string>
+    <string name="incorrect_data">Некорректные данные!</string>
+    <string name="incorrect_login">Некорректный логин!</string>
+    <string name="add_patient">Добавить пациента</string>
+    <string name="incorrect_fullname_phone">Некорректные фамилия, имя или номер телефона!</string>
+    <string name="appointments_log">Журнал приёмов</string>
+    <string name="edit_appointment">Изменить прием</string>
+    <string name="edit_patient">Изменить пациента</string>
+    <string name="patient_card">Карта пациента</string>
+    <string name="patients">Пациенты</string>
+
+    <string name="january">января</string>
+    <string name="february">февраля</string>
+    <string name="march">марта</string>
+    <string name="april">апреля</string>
+    <string name="may">мая</string>
+    <string name="june">июня</string>
+    <string name="july">июля</string>
+    <string name="august">августа</string>
+    <string name="september">сентября</string>
+    <string name="october">октября</string>
+    <string name="november">ноября</string>
+    <string name="december">декабря</string>
 </resources>

@@ -27,7 +27,7 @@ class PatientsFragment : Fragment() {
 
         val root = inflater.inflate(R.layout.fragment_patients, container, false) as ViewGroup
         val toolbar: Toolbar = root.findViewById(R.id.toolbar) as Toolbar
-        toolbar.title = "Пациенты"
+        toolbar.title = getString(R.string.patients)
         (activity as PatientsActivity).setSupportActionBar(toolbar)
 
         val addAppointmentButton = root.findViewById<FloatingActionButton>(R.id.add_patient_button)

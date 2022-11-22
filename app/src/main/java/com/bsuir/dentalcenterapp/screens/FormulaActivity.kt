@@ -19,7 +19,7 @@ class FormulaActivity : AppCompatActivity() {
         setContentView(R.layout.activity_formula)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
-        toolbar.title = "Формула зубов"
+        toolbar.title = getString(R.string.teeth_formula)
         setSupportActionBar(toolbar)
 
         val textViewList = listOf<TextView>(
