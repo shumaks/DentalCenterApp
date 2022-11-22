@@ -16,7 +16,7 @@ import com.itexus.dentalcenterapp.R
 
 class PatientsFragment : Fragment() {
 
-    private val viewModel: MainViewModel = MainViewModel()
+    private val viewModel: MainViewModel = MainViewModel
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchView: SearchView
 
@@ -45,7 +45,7 @@ class PatientsFragment : Fragment() {
         super.onResume()
 
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        val patients = viewModel.getPatients()
+        viewModel.observePatients()
         val onPatientClickListener: PatientsAdapter.OnPatientClickListener = object : PatientsAdapter.OnPatientClickListener {
             override fun onClick(patient: Patient) {
                 val intent = Intent(activity, PatientCardActivity::class.java)
@@ -53,21 +53,24 @@ class PatientsFragment : Fragment() {
                 startActivity(intent, null)
             }
         }
-        val adapter = PatientsAdapter(patients.toMutableList(), onPatientClickListener)
 
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                adapter.getFilter().filter(query)
-                return true
-            }
+        viewModel.patientsLiveData.observeForever {
+            val adapter = PatientsAdapter(it.toMutableList(), onPatientClickListener)
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                adapter.getFilter().filter(newText);
-                return true
-            }
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    adapter.getFilter().filter(query)
+                    return true
+                }
 
-        })
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    adapter.getFilter().filter(newText);
+                    return true
+                }
 
-        recyclerView.adapter = adapter
+            })
+
+            recyclerView.adapter = adapter
+        }
     }
 }

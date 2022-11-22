@@ -18,7 +18,7 @@ import retrofit2.Response
 
 class AddAppointmentActivity : AppCompatActivity() {
 
-    private val viewModel = MainViewModel()
+    private val viewModel = MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

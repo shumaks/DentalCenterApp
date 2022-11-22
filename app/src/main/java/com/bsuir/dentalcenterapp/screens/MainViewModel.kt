@@ -1,19 +1,27 @@
 package com.bsuir.dentalcenterapp.screens
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.bsuir.dentalcenterapp.models.AppointmentRequest
-import com.bsuir.dentalcenterapp.models.PatientRequest
+import com.bsuir.dentalcenterapp.models.*
 import com.bsuir.dentalcenterapp.repo.AppointmentsRepo
 import com.bsuir.dentalcenterapp.repo.PatientsRepo
 import com.bsuir.dentalcenterapp.services.RetrofitClient
 import com.bsuir.dentalcenterapp.services.RetrofitServices
 
-class MainViewModel : ViewModel() {
+object MainViewModel : ViewModel() {
+    const val BASE_URL = "http://localhost:6666/"
+
     private val retrofitService = RetrofitClient.getClient(BASE_URL).create(RetrofitServices::class.java)
     private val appointmentsRepo = AppointmentsRepo()
     private val patientsRepo = PatientsRepo()
+    val appointmentsLiveData = MutableLiveData<List<AppointmentResponseData>>()
+    val patientsLiveData = MutableLiveData<List<Patient>>()
 
-    fun getPatients() = patientsRepo.getPatients()
+    fun observePatients() = patientsRepo.observePatients().subscribe {
+        patientsLiveData.postValue(it.patients)
+    }
+
+    fun getPatients() = patientsRepo.getPatients().patients
 
     fun addPatient(body: PatientRequest) = retrofitService.addPatient(body)
 
@@ -21,11 +29,11 @@ class MainViewModel : ViewModel() {
 
     fun updatePatient(id: String, body: PatientRequest) = retrofitService.updatePatient("patients/$id", body)
 
-    fun getAppointments() = appointmentsRepo.getAppointments()
+    fun observeAppointments() = appointmentsRepo.observeAppointments().subscribe {
+        appointmentsLiveData.postValue(it.data)
+    }
+
+    fun getAppointments() = appointmentsRepo.getAppointments().data
 
     fun addAppointment(body: AppointmentRequest) = retrofitService.addAppointment(body)
-
-    companion object {
-        const val BASE_URL = "http://localhost:6666/"
-    }
 }

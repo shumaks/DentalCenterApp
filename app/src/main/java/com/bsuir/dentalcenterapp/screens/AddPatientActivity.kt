@@ -20,7 +20,7 @@ import java.io.IOException
 
 class AddPatientActivity : AppCompatActivity() {
 
-    private val viewModel = MainViewModel()
+    private val viewModel = MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

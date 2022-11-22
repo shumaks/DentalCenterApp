@@ -1,22 +1,23 @@
 package com.bsuir.dentalcenterapp.repo
 
+import com.bsuir.dentalcenterapp.models.AppointmentResponse
 import com.bsuir.dentalcenterapp.models.AppointmentResponseData
 import com.bsuir.dentalcenterapp.screens.MainViewModel
 import com.bsuir.dentalcenterapp.services.RetrofitClient
 import com.bsuir.dentalcenterapp.services.RetrofitServices
+import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 
 class AppointmentsRepo {
-    private var appointmentsList = listOf<AppointmentResponseData>()
-    private val retrofitService = RetrofitClient.getClient(MainViewModel.BASE_URL).create(RetrofitServices::class.java)
+    private lateinit var response: AppointmentResponse
+    private val retrofitService =
+        RetrofitClient.getClient(MainViewModel.BASE_URL).create(RetrofitServices::class.java)
 
-    fun getAppointments(): List<AppointmentResponseData> {
-        retrofitService.getAppointmentsList().subscribeOn(Schedulers.io()).subscribe {
-            appointmentsList = it.data
+    fun observeAppointments(): Observable<AppointmentResponse> =
+        retrofitService.getAppointmentsList().subscribeOn(Schedulers.io()).doOnNext {
+            response = it
         }
 
-        Thread.sleep(1000L)
-
-        return appointmentsList
-    }
+    fun getAppointments() = response
 }

@@ -3,21 +3,18 @@ package com.bsuir.dentalcenterapp.screens
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.Toolbar
-import androidx.core.app.ActivityCompat.invalidateOptionsMenu
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bsuir.dentalcenterapp.models.Appointment
 import com.bsuir.dentalcenterapp.models.AppointmentResponseData
 import com.bsuir.dentalcenterapp.services.AppointmentsAdapter
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.itexus.dentalcenterapp.R
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class AppointmentsFragment : Fragment() {
 
-    private val viewModel: MainViewModel = MainViewModel()
+    private val viewModel: MainViewModel = MainViewModel
     private lateinit var recyclerView: RecyclerView
 
     override fun onCreateView(
@@ -38,8 +35,11 @@ class AppointmentsFragment : Fragment() {
         super.onResume()
 
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        val appointments = viewModel.getAppointments().sortByDate()
-        recyclerView.adapter = AppointmentsAdapter(appointments)
+        viewModel.observeAppointments()
+        viewModel.appointmentsLiveData.observeForever {
+            val appointments = it.sortByDate()
+            recyclerView.adapter = AppointmentsAdapter(appointments)
+        }
     }
 
     private fun List<AppointmentResponseData>.sortByDate(): List<AppointmentResponseData> {

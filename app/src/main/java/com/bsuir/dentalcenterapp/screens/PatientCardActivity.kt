@@ -19,7 +19,7 @@ import com.itexus.dentalcenterapp.R
 
 class PatientCardActivity : AppCompatActivity() {
 
-    private val viewModel = MainViewModel()
+    private val viewModel = MainViewModel
     private lateinit var recyclerView: RecyclerView
     private var id: String? = ""
 
@@ -41,10 +41,10 @@ class PatientCardActivity : AppCompatActivity() {
         val buttonAddAppointment: FloatingActionButton = findViewById(R.id.add_appointment_button)
         val buttonFormula: Button = findViewById(R.id.buttonFormula)
 
-        fullNameTextView.text = patient.fullName
-        phone.text = patient.phone
+        fullNameTextView.text = patient?.fullName
+        phone.text = patient?.phone
         buttonCall.setOnClickListener {
-            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:${patient.phone}"))
+            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:${patient?.phone}"))
             startActivity(intent)
         }
         buttonAddAppointment.setOnClickListener {
