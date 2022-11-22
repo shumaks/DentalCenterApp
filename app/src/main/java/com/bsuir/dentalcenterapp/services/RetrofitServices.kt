@@ -24,4 +24,10 @@ interface RetrofitServices {
 
     @POST("appointments")
     fun addAppointment(@Body appointment: AppointmentRequest): Call<Any>
+
+    @PATCH
+    fun updateAppointment(@Url url: String, @Body appointment: AppointmentRequest): Call<Any>
+
+    @DELETE
+    fun deleteAppointment(@Url url: String): Observable<Any>
 }

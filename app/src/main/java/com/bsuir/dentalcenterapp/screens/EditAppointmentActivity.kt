@@ -4,25 +4,29 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.bsuir.dentalcenterapp.models.Appointment
 import com.bsuir.dentalcenterapp.models.AppointmentRequest
 import com.itexus.dentalcenterapp.R
+import io.reactivex.schedulers.Schedulers
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AddAppointmentActivity : AppCompatActivity() {
+class EditAppointmentActivity : AppCompatActivity() {
 
     private val viewModel = MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_appointment)
+        setContentView(R.layout.activity_edit_appointment)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
-        toolbar.title = "Добавить прием"
+        toolbar.title = "Изменить прием"
         setSupportActionBar(toolbar)
 
         val id = intent.getStringExtra("id")!!
@@ -31,12 +35,27 @@ class AddAppointmentActivity : AppCompatActivity() {
         val price: EditText = findViewById(R.id.price)
         val date: EditText = findViewById(R.id.date)
         val time: EditText = findViewById(R.id.time)
-        val buttonAdd: Button = findViewById(R.id.buttonEditAppointment)
+        val buttonSave: Button = findViewById(R.id.buttonSaveAppointment)
 
-        buttonAdd.setOnClickListener {
-            viewModel.addAppointment(
+        lateinit var appointment: Appointment
+        viewModel.getAppointments().forEach {
+            it.data.forEach {
+                if (it.id == id) {
+                    appointment = it
+                }
+            }
+        }
+        toothNumber.setText(appointment.dentNumber.toString())
+        diagnosis.setText(appointment.diagnosis)
+        price.setText(appointment.price.toString())
+        date.setText(appointment.date)
+        time.setText(appointment.time)
+
+        buttonSave.setOnClickListener {
+            viewModel.updateAppointment(
+                appointment.id,
                 AppointmentRequest(
-                    id,
+                    appointment.patient.id,
                     toothNumber.text.toString().toInt(),
                     diagnosis.text.toString(),
                     price.text.toString().toInt(),

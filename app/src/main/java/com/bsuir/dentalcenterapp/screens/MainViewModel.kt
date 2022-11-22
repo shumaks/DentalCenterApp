@@ -7,6 +7,7 @@ import com.bsuir.dentalcenterapp.repo.AppointmentsRepo
 import com.bsuir.dentalcenterapp.repo.PatientsRepo
 import com.bsuir.dentalcenterapp.services.RetrofitClient
 import com.bsuir.dentalcenterapp.services.RetrofitServices
+import io.reactivex.schedulers.Schedulers
 
 object MainViewModel : ViewModel() {
     const val BASE_URL = "http://localhost:6666/"
@@ -36,4 +37,8 @@ object MainViewModel : ViewModel() {
     fun getAppointments() = appointmentsRepo.getAppointments().data
 
     fun addAppointment(body: AppointmentRequest) = retrofitService.addAppointment(body)
+
+    fun updateAppointment(id: String, body: AppointmentRequest) = retrofitService.updateAppointment("appointments/$id", body)
+
+    fun deleteAppointment(id: String) = retrofitService.deleteAppointment("appointments/$id").subscribeOn(Schedulers.io()).subscribe()
 }

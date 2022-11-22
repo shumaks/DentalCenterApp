@@ -79,11 +79,11 @@
         app:layout_constraintTop_toBottomOf="@+id/price" />
 
     <Button
-        android:id="@+id/buttonEditAppointment"
+        android:id="@+id/buttonSaveAppointment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="192dp"
-        android:text="Добавить"
+        android:text="Сохранить"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

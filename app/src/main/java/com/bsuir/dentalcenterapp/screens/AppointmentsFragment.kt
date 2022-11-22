@@ -1,13 +1,19 @@
 package com.bsuir.dentalcenterapp.screens
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bsuir.dentalcenterapp.models.Appointment
+import com.bsuir.dentalcenterapp.models.AppointmentRequest
 import com.bsuir.dentalcenterapp.models.AppointmentResponseData
+import com.bsuir.dentalcenterapp.models.Patient
 import com.bsuir.dentalcenterapp.services.AppointmentsAdapter
+import com.bsuir.dentalcenterapp.services.AppointmentsByDateAdapter
+import com.bsuir.dentalcenterapp.services.PatientsAdapter
 import com.itexus.dentalcenterapp.R
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -36,9 +42,26 @@ class AppointmentsFragment : Fragment() {
 
         recyclerView.layoutManager = LinearLayoutManager(activity)
         viewModel.observeAppointments()
+
+        val onEditClickListener: AppointmentsByDateAdapter.OnEditClickListener =
+            object : AppointmentsByDateAdapter.OnEditClickListener {
+                override fun onClick(appointment: Appointment) {
+                    val intent = Intent(activity, EditAppointmentActivity::class.java)
+                    intent.putExtra("id", appointment.id)
+                    startActivity(intent, null)
+                }
+            }
+        val onDeleteClickListener: AppointmentsByDateAdapter.OnDeleteClickListener =
+            object : AppointmentsByDateAdapter.OnDeleteClickListener {
+                override fun onClick(appointment: Appointment) {
+                    viewModel.deleteAppointment(appointment.id)
+                    viewModel.observeAppointments()
+                }
+            }
+
         viewModel.appointmentsLiveData.observeForever {
             val appointments = it.sortByDate()
-            recyclerView.adapter = AppointmentsAdapter(appointments)
+            recyclerView.adapter = AppointmentsAdapter(appointments, onEditClickListener, onDeleteClickListener)
         }
     }
 

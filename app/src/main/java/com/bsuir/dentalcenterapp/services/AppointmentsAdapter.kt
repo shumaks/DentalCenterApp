@@ -12,7 +12,9 @@ import com.bsuir.dentalcenterapp.models.AppointmentResponseData
 import com.itexus.dentalcenterapp.R
 
 class AppointmentsAdapter(
-    private val dataSet: List<AppointmentResponseData>
+    private val dataSet: List<AppointmentResponseData>,
+    private val onEditClickListener: AppointmentsByDateAdapter.OnEditClickListener,
+    private val onDeleteClickListener: AppointmentsByDateAdapter.OnDeleteClickListener
 ) : RecyclerView.Adapter<AppointmentsAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -36,7 +38,7 @@ class AppointmentsAdapter(
         viewHolder.date.text = dataSet[position].title
         viewHolder.recyclerView.layoutManager = LinearLayoutManager(context)
         val appointments = dataSet[position].data
-        viewHolder.recyclerView.adapter = AppointmentsByDateAdapter(appointments)
+        viewHolder.recyclerView.adapter = AppointmentsByDateAdapter(appointments, onEditClickListener, onDeleteClickListener)
     }
 
     override fun getItemCount() = dataSet.size
