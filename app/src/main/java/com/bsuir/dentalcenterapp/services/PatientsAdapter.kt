@@ -7,6 +7,7 @@ import android.widget.Filter
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bsuir.dentalcenterapp.models.Patient
+import com.github.ivbaranov.mli.MaterialLetterIcon
 import com.itexus.dentalcenterapp.R
 import java.lang.Character.toLowerCase
 import java.util.*
@@ -24,10 +25,12 @@ class PatientsAdapter(
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val fullname: TextView
         val phone: TextView
+        val letterPatient: MaterialLetterIcon
 
         init {
             fullname = view.findViewById(R.id.fullname_patient)
             phone = view.findViewById(R.id.phone_patient)
+            letterPatient = view.findViewById(R.id.letterPatient)
         }
     }
 
@@ -50,6 +53,8 @@ class PatientsAdapter(
         viewHolder.phone.setOnClickListener {
             onPatientClickListener.onClick(dataSet[position])
         }
+
+        viewHolder.letterPatient.letter = viewHolder.fullname.text.toString().first().toString()
     }
 
     override fun getItemCount() = dataSet.size

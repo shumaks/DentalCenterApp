@@ -1,5 +1,6 @@
 package com.bsuir.dentalcenterapp.services
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,9 +8,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bsuir.dentalcenterapp.models.Appointment
-import com.bsuir.dentalcenterapp.models.Patient
+import com.github.ivbaranov.mli.MaterialLetterIcon
 import com.itexus.dentalcenterapp.R
-import org.w3c.dom.Text
+
 
 class AppointmentsByDateAdapter(
     private val dataSet: List<Appointment>,
@@ -23,6 +24,7 @@ class AppointmentsByDateAdapter(
         val time: TextView
         val buttonEdit: ImageView
         val buttonDelete: ImageView
+        val letterPatient: MaterialLetterIcon
 
         init {
             fullname = view.findViewById(R.id.fullname)
@@ -30,6 +32,7 @@ class AppointmentsByDateAdapter(
             time = view.findViewById(R.id.time)
             buttonEdit = view.findViewById(R.id.buttonEdit)
             buttonDelete = view.findViewById(R.id.buttonDelete)
+            letterPatient = view.findViewById(R.id.letterPatient)
         }
     }
 
@@ -50,6 +53,7 @@ class AppointmentsByDateAdapter(
         viewHolder.buttonDelete.setOnClickListener {
             onDeleteClickListener.onClick(dataSet[position])
         }
+        viewHolder.letterPatient.letter = viewHolder.fullname.text.toString().first().toString()
     }
 
     override fun getItemCount() = dataSet.size
