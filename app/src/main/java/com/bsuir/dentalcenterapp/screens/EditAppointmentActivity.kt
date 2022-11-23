@@ -1,11 +1,9 @@
 package com.bsuir.dentalcenterapp.screens
 
 import android.os.Bundle
+import android.text.InputType
 import android.view.*
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -54,6 +52,53 @@ class EditAppointmentActivity : AppCompatActivity() {
         price.setText(appointment.price.toString())
         date.setText(appointment.date)
         time.setText(appointment.time)
+        val calendarView: CalendarView = findViewById(R.id.calendarView)
+        val timePicker: TimePicker = findViewById(R.id.timePicker)
+
+        calendarView.setOnDateChangeListener { _, _, month, dayOfMonth ->
+            val day = if (dayOfMonth < 10) {
+                "0$dayOfMonth"
+            } else {
+                dayOfMonth
+            }
+            val newMonth = if (month.inc() < 10) {
+                "0${month.inc()}"
+            } else {
+                month.inc()
+            }
+            date.setText("$newMonth.$day")
+            calendarView.visibility = View.GONE
+            buttonSave.visibility = View.VISIBLE
+        }
+
+        date.inputType = InputType.TYPE_NULL
+        time.inputType = InputType.TYPE_NULL
+        calendarView.visibility = View.GONE
+        timePicker.visibility = View.GONE
+
+        date.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                calendarView.visibility = View.VISIBLE
+                buttonSave.visibility = View.INVISIBLE
+            } else {
+                calendarView.visibility = View.INVISIBLE
+                buttonSave.visibility = View.VISIBLE
+            }
+        }
+
+        time.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                timePicker.visibility = View.VISIBLE
+                buttonSave.visibility = View.INVISIBLE
+            } else {
+                timePicker.visibility = View.INVISIBLE
+                buttonSave.visibility = View.VISIBLE
+            }
+        }
+
+        timePicker.setOnTimeChangedListener { _, hourOfDay, minute ->
+            time.setText("$hourOfDay:$minute")
+        }
 
         buttonSave.setOnClickListener {
             if (!toothNumber.text.toString().isToothNumberCorrect()) {
