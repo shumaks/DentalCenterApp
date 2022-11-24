@@ -46,7 +46,7 @@ class AddAppointmentActivity : AppCompatActivity() {
         val timePicker: TimePicker = findViewById(R.id.timePicker)
         val closeTime: ImageView = findViewById(R.id.closeTime)
 
-        calendarView.setOnDateChangeListener { _, _, month, dayOfMonth ->
+        calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             val day = if (dayOfMonth < 10) {
                 "0$dayOfMonth"
             } else {
@@ -57,7 +57,7 @@ class AddAppointmentActivity : AppCompatActivity() {
             } else {
                 month.inc()
             }
-            date.setText("$newMonth.$day")
+            date.setText("$day/$newMonth/$year")
             calendarView.visibility = View.GONE
             buttonAdd.visibility = View.VISIBLE
         }

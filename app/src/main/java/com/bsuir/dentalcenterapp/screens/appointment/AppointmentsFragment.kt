@@ -19,7 +19,6 @@ import java.time.format.DateTimeFormatter
 
 class AppointmentsFragment : Fragment() {
 
-    private val viewModel: MainViewModel = MainViewModel
     private lateinit var recyclerView: RecyclerView
 
     override fun onCreateView(
@@ -69,62 +68,16 @@ class AppointmentsFragment : Fragment() {
                     }
                 }
             }
-            recyclerView.adapter = AppointmentsAdapter(filteredAppointments, onEditClickListener, onDeleteClickListener)
+            recyclerView.adapter = AppointmentsAdapter(
+                filteredAppointments,
+                onEditClickListener,
+                onDeleteClickListener
+            )
         }
     }
 
-    private fun List<AppointmentResponseData>.sortByDate(): List<AppointmentResponseData> {
-        val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
-        return this.map { it.copy(title = it.title.toDate()) }.sortedByDescending {
-            LocalDate.parse(it.title, dateTimeFormatter)
-        }.map { it.copy(it.title.toStringDate()) }
-    }
-
-    private fun String.toDate(): String {
-        val splittedString = this.split(" ")
-        val day = if (splittedString.first().length == 1) {
-            "0${splittedString.first()}"
-        } else {
-            splittedString.first()
+    private fun List<AppointmentResponseData>.sortByDate(): List<AppointmentResponseData> =
+        this.sortedByDescending {
+            it.title.length
         }
-        val month = when (splittedString[1]) {
-            "января" -> "01"
-            "февраля" -> "02"
-            "марта" -> "03"
-            "апреля" -> "04"
-            "мая" -> "05"
-            "июня" -> "06"
-            "июля" -> "07"
-            "августа" -> "08"
-            "сентября" -> "09"
-            "октября" -> "10"
-            "ноября" -> "11"
-            else -> "12"
-        }
-        return "$day-$month-2022"
-    }
-
-    private fun String.toStringDate(): String {
-        val splittedString = this.dropLast(5).split("-")
-        val day = if (splittedString.first().first() == '0') {
-            splittedString.first().drop(1)
-        } else {
-            splittedString.first()
-        }
-        val month = when (splittedString[1]) {
-            "01" -> getString(R.string.january)
-            "02" -> getString(R.string.february)
-            "03" -> getString(R.string.march)
-            "04" -> getString(R.string.april)
-            "05" -> getString(R.string.may)
-            "06" -> getString(R.string.june)
-            "07" -> getString(R.string.july)
-            "08" -> getString(R.string.august)
-            "09" -> getString(R.string.september)
-            "10" -> getString(R.string.october)
-            "11" -> getString(R.string.november)
-            else -> getString(R.string.december)
-        }
-        return "$day $month"
-    }
 }
