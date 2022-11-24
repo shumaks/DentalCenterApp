@@ -5,6 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
+    android:layout_marginTop="10dp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -14,25 +15,31 @@
 
         <com.github.ivbaranov.mli.MaterialLetterIcon
             android:id="@+id/letterPatient"
-            android:layout_width="34dp"
+            android:layout_width="44dp"
+            android:fontFamily="serif"
+            android:layout_marginEnd="20dp"
             app:mli_shape_color="@color/light_blue"
             android:layout_height="match_parent"
             tools:srcCompat="@tools:sample/avatars" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/fullname"
-                android:text="@string/fullname"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="serif"
+                android:text="@string/fullname"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/diagnosis"
                 android:text="@string/diagnosis"
+                android:fontFamily="serif"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -41,20 +48,27 @@
         <TextView
             android:id="@+id/time"
             android:text="@string/time"
+            android:background="@drawable/rounded_corner"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="serif"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <ImageView
             android:id="@+id/buttonEdit"
-            android:layout_width="22dp"
-            android:layout_height="20dp"
-            android:background="#516AF8"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/rounded_corner"
+            android:layout_marginEnd="20dp"
             app:srcCompat="@android:drawable/ic_menu_edit" />
 
         <ImageView
             android:id="@+id/buttonDelete"
-            android:layout_width="21dp"
-            android:layout_height="20dp"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/rounded_corner_red"
             android:layout_weight="1"
             app:srcCompat="@android:drawable/ic_delete" />
 

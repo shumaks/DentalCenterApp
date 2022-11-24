@@ -4,27 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="wrap_content"
     android:layout_width="wrap_content"
+    android:layout_marginStart="20dp"
+    android:layout_marginTop="20dp"
     android:orientation="horizontal">
 
     <com.github.ivbaranov.mli.MaterialLetterIcon
         android:id="@+id/letterPatient"
-        android:layout_width="34dp"
+        android:layout_width="44dp"
         app:mli_shape_color="@color/light_blue"
+        android:fontFamily="serif"
         android:layout_height="match_parent"
         tools:srcCompat="@tools:sample/avatars" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/fullname_patient"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:fontFamily="serif"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/phone_patient"
+            android:fontFamily="serif"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

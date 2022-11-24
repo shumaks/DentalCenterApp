@@ -3,59 +3,88 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.bsuir.dentalcenterapp.screens.AddAppointmentActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.bsuir.dentalcenterapp.screens.AddAppointmentActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_marginBottom="675dp"
-        android:background="?attr/colorPrimary"
+        android:background="@color/light_blue"
         android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        android:fontFamily="serif"
+        android:textColor="@color/white"
+        app:theme="@style/ToolBarStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
-    <EditText
-        android:id="@+id/tooth_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/tooth_number"
-        android:textCursorDrawable="@color/black"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tootNumberInputLayout"
+        android:layout_width="257dp"
+        android:layout_height="53dp"
         android:layout_marginBottom="600dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-    <EditText
-        android:id="@+id/diagnosis"
-        android:textColor="@color/black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/diagnosis"
-        android:textCursorDrawable="@color/black"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tooth_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="serif"
+            android:hint="@string/tooth_number"
+            android:inputType="number"
+            android:textCursorDrawable="@color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/diagnosisInputLayout"
+        android:layout_width="257dp"
+        android:layout_height="53dp"
         android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tooth_number" />
+        app:layout_constraintTop_toBottomOf="@+id/tootNumberInputLayout">
 
-    <EditText
-        android:id="@+id/price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:hint="@string/price"
-        android:textCursorDrawable="@color/black"
-        android:textColor="@color/black"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/diagnosis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="serif"
+            android:hint="@string/diagnosis"
+            android:textColor="@color/black"
+            android:textCursorDrawable="@color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/priceInputLayout"
+        android:layout_width="257dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/diagnosis" />
+        app:layout_constraintTop_toBottomOf="@+id/diagnosisInputLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="serif"
+            android:hint="@string/price"
+            android:inputType="number"
+            android:textColor="@color/black"
+            android:textCursorDrawable="@color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <EditText
         android:id="@+id/date"
@@ -63,37 +92,40 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:hint="@string/date"
-        android:textCursorDrawable="@color/black"
+        android:fontFamily="serif"
         android:textColor="@color/black"
+        android:textCursorDrawable="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.166"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/price" />
+        app:layout_constraintTop_toBottomOf="@+id/priceInputLayout" />
 
     <EditText
         android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
+        android:fontFamily="serif"
         android:hint="@string/time"
-        android:textCursorDrawable="@color/black"
         android:textColor="@color/black"
+        android:textCursorDrawable="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.831"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/price" />
+        app:layout_constraintTop_toBottomOf="@+id/priceInputLayout" />
 
     <Button
         android:id="@+id/buttonSaveAppointment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="192dp"
+        android:fontFamily="serif"
         android:text="@string/save"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/price"
+        app:layout_constraintTop_toBottomOf="@+id/priceInputLayout"
         app:layout_constraintVertical_bias="0.0" />
 
     <CalendarView
