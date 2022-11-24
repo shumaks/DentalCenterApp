@@ -3,7 +3,7 @@ package com.bsuir.dentalcenterapp
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
-import com.bsuir.dentalcenterapp.models.Doctor
+import com.bsuir.dentalcenterapp.models.doctor.Doctor
 
 class App : Application() {
 

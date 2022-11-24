@@ -2,7 +2,12 @@ package com.bsuir.dentalcenterapp.screens
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.bsuir.dentalcenterapp.models.*
+import com.bsuir.dentalcenterapp.models.appointment.AppointmentRequest
+import com.bsuir.dentalcenterapp.models.appointment.AppointmentResponseData
+import com.bsuir.dentalcenterapp.models.doctor.DoctorAddRequest
+import com.bsuir.dentalcenterapp.models.doctor.DoctorLoginRequest
+import com.bsuir.dentalcenterapp.models.patient.Patient
+import com.bsuir.dentalcenterapp.models.patient.PatientRequest
 import com.bsuir.dentalcenterapp.repo.AppointmentsRepo
 import com.bsuir.dentalcenterapp.repo.PatientsRepo
 import com.bsuir.dentalcenterapp.services.RetrofitClient

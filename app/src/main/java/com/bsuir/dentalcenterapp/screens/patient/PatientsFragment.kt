@@ -1,4 +1,4 @@
-package com.bsuir.dentalcenterapp.screens
+package com.bsuir.dentalcenterapp.screens.patient
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,8 +8,9 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bsuir.dentalcenterapp.models.Patient
-import com.bsuir.dentalcenterapp.services.PatientsAdapter
+import com.bsuir.dentalcenterapp.models.patient.Patient
+import com.bsuir.dentalcenterapp.screens.MainViewModel
+import com.bsuir.dentalcenterapp.adapters.PatientsAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.itexus.dentalcenterapp.R
 
@@ -45,7 +46,7 @@ class PatientsFragment : Fragment() {
         super.onResume()
 
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        viewModel.observePatients()
+        MainViewModel.observePatients()
         val onPatientClickListener: PatientsAdapter.OnPatientClickListener = object : PatientsAdapter.OnPatientClickListener {
             override fun onClick(patient: Patient) {
                 val intent = Intent(activity, PatientCardActivity::class.java)
@@ -54,7 +55,7 @@ class PatientsFragment : Fragment() {
             }
         }
 
-        viewModel.patientsLiveData.observe(this) {
+        MainViewModel.patientsLiveData.observe(this) {
             val adapter = PatientsAdapter(it.toMutableList(), onPatientClickListener)
 
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

@@ -1,4 +1,4 @@
-package com.bsuir.dentalcenterapp.models
+package com.bsuir.dentalcenterapp.models.appointment
 
 import com.google.gson.annotations.SerializedName
 

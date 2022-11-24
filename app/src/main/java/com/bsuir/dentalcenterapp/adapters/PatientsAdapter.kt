@@ -1,4 +1,4 @@
-package com.bsuir.dentalcenterapp.services
+package com.bsuir.dentalcenterapp.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,10 +6,9 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bsuir.dentalcenterapp.models.Patient
+import com.bsuir.dentalcenterapp.models.patient.Patient
 import com.github.ivbaranov.mli.MaterialLetterIcon
 import com.itexus.dentalcenterapp.R
-import java.lang.Character.toLowerCase
 import java.util.*
 import kotlin.collections.ArrayList
 

@@ -1,5 +1,6 @@
-package com.bsuir.dentalcenterapp.models
+package com.bsuir.dentalcenterapp.models.appointment
 
+import com.bsuir.dentalcenterapp.models.patient.Patient
 import com.google.gson.annotations.SerializedName
 
 data class Appointment(

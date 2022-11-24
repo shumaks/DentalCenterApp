@@ -1,4 +1,4 @@
-package com.bsuir.dentalcenterapp.screens
+package com.bsuir.dentalcenterapp.screens.patient
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

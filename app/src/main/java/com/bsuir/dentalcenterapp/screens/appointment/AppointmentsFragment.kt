@@ -1,4 +1,4 @@
-package com.bsuir.dentalcenterapp.screens
+package com.bsuir.dentalcenterapp.screens.appointment
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,13 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bsuir.dentalcenterapp.App
-import com.bsuir.dentalcenterapp.models.Appointment
-import com.bsuir.dentalcenterapp.models.AppointmentRequest
-import com.bsuir.dentalcenterapp.models.AppointmentResponseData
-import com.bsuir.dentalcenterapp.models.Patient
-import com.bsuir.dentalcenterapp.services.AppointmentsAdapter
-import com.bsuir.dentalcenterapp.services.AppointmentsByDateAdapter
-import com.bsuir.dentalcenterapp.services.PatientsAdapter
+import com.bsuir.dentalcenterapp.models.appointment.Appointment
+import com.bsuir.dentalcenterapp.models.appointment.AppointmentResponseData
+import com.bsuir.dentalcenterapp.screens.MainViewModel
+import com.bsuir.dentalcenterapp.adapters.AppointmentsAdapter
+import com.bsuir.dentalcenterapp.adapters.AppointmentsByDateAdapter
 import com.itexus.dentalcenterapp.R
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -31,7 +29,7 @@ class AppointmentsFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_appointments, container, false) as ViewGroup
         val toolbar: Toolbar = root.findViewById(R.id.toolbar) as Toolbar
         toolbar.title = getString(R.string.appointments_log)
-        (activity as MainActivity).setSupportActionBar(toolbar)
+        (activity as AppointmentActivity).setSupportActionBar(toolbar)
 
         recyclerView = root.findViewById(R.id.appointments_recycler_view)
 
@@ -42,7 +40,7 @@ class AppointmentsFragment : Fragment() {
         super.onResume()
 
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        viewModel.observeAppointments()
+        MainViewModel.observeAppointments()
 
         val onEditClickListener: AppointmentsByDateAdapter.OnEditClickListener =
             object : AppointmentsByDateAdapter.OnEditClickListener {
@@ -55,12 +53,12 @@ class AppointmentsFragment : Fragment() {
         val onDeleteClickListener: AppointmentsByDateAdapter.OnDeleteClickListener =
             object : AppointmentsByDateAdapter.OnDeleteClickListener {
                 override fun onClick(appointment: Appointment) {
-                    viewModel.deleteAppointment(appointment.id)
-                    viewModel.observeAppointments()
+                    MainViewModel.deleteAppointment(appointment.id)
+                    MainViewModel.observeAppointments()
                 }
             }
 
-        viewModel.appointmentsLiveData.observe(this) {
+        MainViewModel.appointmentsLiveData.observe(this) {
             val filteredAppointments = mutableListOf<AppointmentResponseData>()
             it.sortByDate().forEach { response ->
                 response.copy(data = response.data.filter {

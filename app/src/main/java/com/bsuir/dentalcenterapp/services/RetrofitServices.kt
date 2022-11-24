@@ -1,6 +1,13 @@
 package com.bsuir.dentalcenterapp.services
 
 import com.bsuir.dentalcenterapp.models.*
+import com.bsuir.dentalcenterapp.models.appointment.AppointmentRequest
+import com.bsuir.dentalcenterapp.models.appointment.AppointmentResponse
+import com.bsuir.dentalcenterapp.models.doctor.DoctorAddRequest
+import com.bsuir.dentalcenterapp.models.doctor.DoctorLoginRequest
+import com.bsuir.dentalcenterapp.models.doctor.DoctorLoginResponse
+import com.bsuir.dentalcenterapp.models.patient.PatientRequest
+import com.bsuir.dentalcenterapp.models.patient.ResponsePatientModel
 import io.reactivex.Observable
 import retrofit2.Call
 import retrofit2.http.*

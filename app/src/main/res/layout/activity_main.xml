@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.bsuir.dentalcenterapp.screens.MainActivity">
+    tools:context="com.bsuir.dentalcenterapp.screens.appointment.AppointmentActivity">
 
     <fragment
         android:id="@+id/fragment_container_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.bsuir.dentalcenterapp.screens.AppointmentsFragment"
+        android:name="com.bsuir.dentalcenterapp.screens.appointment.AppointmentsFragment"
         android:tag="my_tag">
     </fragment>
 

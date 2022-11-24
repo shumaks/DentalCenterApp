@@ -1,4 +1,4 @@
-package com.bsuir.dentalcenterapp.screens
+package com.bsuir.dentalcenterapp.screens.patient
 
 import android.graphics.Color
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.view.*
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.bsuir.dentalcenterapp.screens.MainViewModel
 import com.itexus.dentalcenterapp.R
 import java.text.SimpleDateFormat
 import java.util.*
@@ -63,7 +64,7 @@ class FormulaActivity : AppCompatActivity() {
         val calendar = Calendar.getInstance()
         val date = simpleDateFormat.format(calendar.time)
 
-        viewModel.getAppointments().forEach {
+        MainViewModel.getAppointments().forEach {
             it.data.forEach { appointment ->
                 if (appointment.patient.id == id && date > appointment.date) {
                     textViewList.forEach { textView ->

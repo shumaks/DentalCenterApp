@@ -1,4 +1,4 @@
-package com.bsuir.dentalcenterapp.services
+package com.bsuir.dentalcenterapp.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -6,8 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bsuir.dentalcenterapp.models.Appointment
-import com.bsuir.dentalcenterapp.models.Patient
+import com.bsuir.dentalcenterapp.models.appointment.Appointment
 import com.itexus.dentalcenterapp.R
 
 class PatientsAppointmentsAdapter(

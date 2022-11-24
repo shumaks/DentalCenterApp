@@ -1,6 +1,6 @@
 package com.bsuir.dentalcenterapp.repo
 
-import com.bsuir.dentalcenterapp.models.ResponsePatientModel
+import com.bsuir.dentalcenterapp.models.patient.ResponsePatientModel
 import com.bsuir.dentalcenterapp.screens.MainViewModel
 import com.bsuir.dentalcenterapp.services.RetrofitClient
 import com.bsuir.dentalcenterapp.services.RetrofitServices

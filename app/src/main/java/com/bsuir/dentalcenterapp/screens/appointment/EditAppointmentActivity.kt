@@ -1,20 +1,18 @@
-package com.bsuir.dentalcenterapp.screens
+package com.bsuir.dentalcenterapp.screens.appointment
 
 import android.os.Bundle
 import android.text.InputType
 import android.view.*
 import android.widget.*
-import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.bsuir.dentalcenterapp.App
-import com.bsuir.dentalcenterapp.models.Appointment
-import com.bsuir.dentalcenterapp.models.AppointmentRequest
+import com.bsuir.dentalcenterapp.models.appointment.Appointment
+import com.bsuir.dentalcenterapp.models.appointment.AppointmentRequest
+import com.bsuir.dentalcenterapp.screens.MainViewModel
 import com.bsuir.dentalcenterapp.utils.isDateCorrect
 import com.bsuir.dentalcenterapp.utils.isTimeCorrect
 import com.bsuir.dentalcenterapp.utils.isToothNumberCorrect
 import com.itexus.dentalcenterapp.R
-import io.reactivex.schedulers.Schedulers
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -40,7 +38,7 @@ class EditAppointmentActivity : AppCompatActivity() {
         val buttonSave: Button = findViewById(R.id.buttonSaveAppointment)
 
         lateinit var appointment: Appointment
-        viewModel.getAppointments().forEach {
+        MainViewModel.getAppointments().forEach {
             it.data.forEach {
                 if (it.id == id) {
                     appointment = it
@@ -134,7 +132,7 @@ class EditAppointmentActivity : AppCompatActivity() {
             } else if (!time.text.toString().isTimeCorrect()) {
                 Toast.makeText(this, getString(R.string.incorrect_time), Toast.LENGTH_SHORT).show()
             } else {
-                viewModel.updateAppointment(
+                MainViewModel.updateAppointment(
                     appointment.id,
                     AppointmentRequest(
                         appointment.patient.id,

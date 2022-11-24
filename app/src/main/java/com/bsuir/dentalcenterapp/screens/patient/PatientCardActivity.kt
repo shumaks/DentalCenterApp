@@ -1,4 +1,4 @@
-package com.bsuir.dentalcenterapp.screens
+package com.bsuir.dentalcenterapp.screens.patient
 
 import android.content.Intent
 import android.net.Uri
@@ -7,15 +7,16 @@ import android.view.*
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bsuir.dentalcenterapp.App
-import com.bsuir.dentalcenterapp.models.Appointment
-import com.bsuir.dentalcenterapp.models.Patient
-import com.bsuir.dentalcenterapp.services.PatientsAppointmentsAdapter
+import com.bsuir.dentalcenterapp.models.appointment.Appointment
+import com.bsuir.dentalcenterapp.models.patient.Patient
+import com.bsuir.dentalcenterapp.screens.MainViewModel
+import com.bsuir.dentalcenterapp.screens.appointment.AddAppointmentActivity
+import com.bsuir.dentalcenterapp.adapters.PatientsAppointmentsAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.itexus.dentalcenterapp.R
 import retrofit2.Call
@@ -69,7 +70,7 @@ class PatientCardActivity : AppCompatActivity() {
         }
         buttonDelete.setOnClickListener {
             id?.let { it ->
-                viewModel.deletePatient(it).enqueue(object : Callback<Any> {
+                MainViewModel.deletePatient(it).enqueue(object : Callback<Any> {
 
                     override fun onResponse(call: Call<Any>, response: Response<Any>) {
                         onBackPressed()
@@ -79,10 +80,10 @@ class PatientCardActivity : AppCompatActivity() {
                     }
                 })
             }
-            viewModel.getAppointments().forEach {
+            MainViewModel.getAppointments().forEach {
                 it.data.forEach {
                     if (it.patient.id == id) {
-                        viewModel.deleteAppointment(it.id)
+                        MainViewModel.deleteAppointment(it.id)
                     }
                 }
             }
@@ -91,10 +92,10 @@ class PatientCardActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.observePatients()
-        viewModel.patientsLiveData.observe(this) {
+        MainViewModel.observePatients()
+        MainViewModel.patientsLiveData.observe(this) {
             try {
-                patient = viewModel.getPatients().first { it.id == id }
+                patient = MainViewModel.getPatients().first { it.id == id }
 
                 fullNameTextView.text = patient.fullName
                 phone.text = patient.phone
@@ -108,11 +109,11 @@ class PatientCardActivity : AppCompatActivity() {
         }
 
         recyclerView.layoutManager = LinearLayoutManager(this)
-        viewModel.observeAppointments()
+        MainViewModel.observeAppointments()
 
-        viewModel.appointmentsLiveData.observe(this) {
+        MainViewModel.appointmentsLiveData.observe(this) {
             val appointments = mutableListOf<Appointment>()
-            viewModel.getAppointments().forEach {
+            MainViewModel.getAppointments().forEach {
                 it.data.forEach {
                     if (it.patient.id == id && it.doctor == App.currentDoctor.id) {
                         appointments.add(it)

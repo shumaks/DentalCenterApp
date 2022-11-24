@@ -1,4 +1,4 @@
-package com.bsuir.dentalcenterapp.screens
+package com.bsuir.dentalcenterapp.screens.login
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,9 +7,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.bsuir.dentalcenterapp.App
-import com.bsuir.dentalcenterapp.models.DoctorAddRequest
-import com.bsuir.dentalcenterapp.models.DoctorLoginRequest
-import com.bsuir.dentalcenterapp.models.DoctorLoginResponse
+import com.bsuir.dentalcenterapp.models.doctor.DoctorAddRequest
+import com.bsuir.dentalcenterapp.models.doctor.DoctorLoginResponse
+import com.bsuir.dentalcenterapp.screens.appointment.AppointmentActivity
+import com.bsuir.dentalcenterapp.screens.MainViewModel
 import com.bsuir.dentalcenterapp.utils.isLoginCorrect
 import com.itexus.dentalcenterapp.R
 import retrofit2.Call
@@ -37,7 +38,7 @@ class RegisterActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
-                viewModel.addDoctor(
+                MainViewModel.addDoctor(
                     DoctorAddRequest(
                         login.text.toString(),
                         fullname.text.toString(),
@@ -52,7 +53,7 @@ class RegisterActivity : AppCompatActivity() {
                         if (response.isSuccessful) {
                             if (response.body()?.data != null) {
                                 App.currentDoctor = response.body()?.data!!
-                                val intent = Intent(this@RegisterActivity, MainActivity::class.java)
+                                val intent = Intent(this@RegisterActivity, AppointmentActivity::class.java)
                                 startActivity(intent, null)
                             } else {
                                 Toast.makeText(

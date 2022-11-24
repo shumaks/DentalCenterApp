@@ -1,4 +1,4 @@
-package com.bsuir.dentalcenterapp.screens
+package com.bsuir.dentalcenterapp.screens.login
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -10,8 +10,10 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.bsuir.dentalcenterapp.App
-import com.bsuir.dentalcenterapp.models.DoctorLoginRequest
-import com.bsuir.dentalcenterapp.models.DoctorLoginResponse
+import com.bsuir.dentalcenterapp.models.doctor.DoctorLoginRequest
+import com.bsuir.dentalcenterapp.models.doctor.DoctorLoginResponse
+import com.bsuir.dentalcenterapp.screens.appointment.AppointmentActivity
+import com.bsuir.dentalcenterapp.screens.MainViewModel
 import com.bsuir.dentalcenterapp.utils.LocaleHelper
 import com.itexus.dentalcenterapp.R
 import retrofit2.Call
@@ -36,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
         val buttonRegister: Button = findViewById(R.id.buttonRegister)
 
         buttonLogin.setOnClickListener {
-            viewModel.loginDoctor(
+            MainViewModel.loginDoctor(
                 DoctorLoginRequest(
                     login.text.toString(),
                     password.text.toString()
@@ -50,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         if (response.body()?.data != null) {
                             App.currentDoctor = response.body()?.data!!
-                            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                            val intent = Intent(this@LoginActivity, AppointmentActivity::class.java)
                             startActivity(intent, null)
                         } else {
                             Toast.makeText(

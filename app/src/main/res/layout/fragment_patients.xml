@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="?android:windowBackground"
-    tools:context="com.bsuir.dentalcenterapp.screens.PatientsFragment">
+    tools:context="com.bsuir.dentalcenterapp.screens.patient.PatientsFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
