@@ -39,6 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="serif"
+            android:maxLength="2"
             android:hint="@string/tooth_number"
             android:inputType="number"
             android:textCursorDrawable="@color/black" />
@@ -59,6 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/diagnosis"
+            android:maxLength="20"
             android:fontFamily="serif"
             android:textColor="@color/black"
             android:textCursorDrawable="@color/black" />
@@ -81,6 +83,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="serif"
             android:hint="@string/price"
+            android:maxLength="20"
             android:inputType="number"
             android:textColor="@color/black"
             android:textCursorDrawable="@color/black" />

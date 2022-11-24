@@ -37,6 +37,8 @@
             android:id="@+id/fullname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLength="20"
+            android:inputType="textPersonName"
             android:fontFamily="serif"
             android:hint="@string/fullname"
             android:textCursorDrawable="@color/black" />
@@ -58,6 +60,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="serif"
             android:hint="@string/phone"
+            android:maxLength="20"
             android:inputType="phone"
             android:textColor="@color/black"
             android:textCursorDrawable="@color/black" />

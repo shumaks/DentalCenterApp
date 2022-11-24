@@ -31,6 +31,7 @@
     <string name="incorrect_time">Некорректное время!</string>
     <string name="incorrect_data">Некорректные данные!</string>
     <string name="incorrect_login">Некорректный логин!</string>
+    <string name="incorrect_fullname">Введите имя и фамилию!</string>
     <string name="add_patient">Добавить пациента</string>
     <string name="incorrect_fullname_phone">Некорректные фамилия, имя или номер телефона!</string>
     <string name="appointments_log">Журнал приёмов</string>

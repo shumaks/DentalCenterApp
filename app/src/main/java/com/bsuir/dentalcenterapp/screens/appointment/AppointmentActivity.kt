@@ -36,4 +36,7 @@ class AppointmentActivity : AppCompatActivity() {
             super.onOptionsItemSelected(item)
         }
     }
+
+    override fun onBackPressed() {
+    }
 }

@@ -31,6 +31,7 @@
     <string name="incorrect_date">Incorrect date!</string>
     <string name="incorrect_time">Incorrect time!</string>
     <string name="incorrect_data">Incorrect data!</string>
+    <string name="incorrect_fullname">Input fullname!</string>
     <string name="incorrect_login">Incorrect login!</string>
     <string name="add_patient">Add patient</string>
     <string name="incorrect_fullname_phone">Incorrect fullname and phone!</string>
