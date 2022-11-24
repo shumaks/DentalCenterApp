@@ -55,6 +55,7 @@ class RegisterActivity : AppCompatActivity() {
                                 App.currentDoctor = response.body()?.data!!
                                 val intent = Intent(this@RegisterActivity, AppointmentActivity::class.java)
                                 startActivity(intent, null)
+                                finish()
                             } else {
                                 Toast.makeText(
                                     applicationContext,

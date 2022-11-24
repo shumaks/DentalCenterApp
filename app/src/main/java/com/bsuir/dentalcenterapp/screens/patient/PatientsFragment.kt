@@ -8,9 +8,9 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bsuir.dentalcenterapp.adapters.PatientsAdapter
 import com.bsuir.dentalcenterapp.models.patient.Patient
 import com.bsuir.dentalcenterapp.screens.MainViewModel
-import com.bsuir.dentalcenterapp.adapters.PatientsAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.itexus.dentalcenterapp.R
 
@@ -56,7 +56,7 @@ class PatientsFragment : Fragment() {
         }
 
         MainViewModel.patientsLiveData.observe(this) {
-            val adapter = PatientsAdapter(it.toMutableList(), onPatientClickListener)
+            val adapter = PatientsAdapter(it.sortedBy { it.fullName }.toMutableList(), onPatientClickListener)
 
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
@@ -70,6 +70,10 @@ class PatientsFragment : Fragment() {
                 }
 
             })
+
+            searchView.setOnClickListener {
+                searchView.onActionViewExpanded()
+            }
 
             recyclerView.adapter = adapter
         }

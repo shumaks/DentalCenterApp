@@ -6,4 +6,9 @@
         android:icon="@drawable/ic_patients"
         android:title="Patients"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_exit"
+        android:icon="@drawable/ic_exit"
+        android:title="Exit"
+        app:showAsAction="ifRoom" />
 </menu>

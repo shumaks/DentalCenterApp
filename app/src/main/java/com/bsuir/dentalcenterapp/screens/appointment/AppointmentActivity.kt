@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import com.bsuir.dentalcenterapp.screens.login.LoginActivity
 import com.bsuir.dentalcenterapp.screens.patient.PatientsActivity
 import com.itexus.dentalcenterapp.R
 
@@ -22,6 +23,12 @@ class AppointmentActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_patients -> {
             startActivity(Intent(this, PatientsActivity::class.java), null)
+            true
+        }
+
+        R.id.action_exit -> {
+            startActivity(Intent(this, LoginActivity::class.java), null)
+            finish()
             true
         }
 

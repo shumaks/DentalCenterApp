@@ -71,37 +71,25 @@ class EditAppointmentActivity : AppCompatActivity() {
         }
 
         date.inputType = InputType.TYPE_NULL
+        date.focusable = View.NOT_FOCUSABLE
         time.inputType = InputType.TYPE_NULL
+        time.focusable = View.NOT_FOCUSABLE
         calendarView.visibility = View.GONE
         timePicker.visibility = View.GONE
         closeTime.visibility = View.GONE
 
-        date.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                calendarView.visibility = View.VISIBLE
-                buttonSave.visibility = View.INVISIBLE
-            } else {
-                calendarView.visibility = View.INVISIBLE
-                buttonSave.visibility = View.VISIBLE
-            }
+        date.setOnClickListener {
+            calendarView.visibility = View.VISIBLE
+            buttonSave.visibility = View.INVISIBLE
+            closeTime.visibility = View.INVISIBLE
+            timePicker.visibility = View.INVISIBLE
         }
 
         time.setOnClickListener {
             timePicker.visibility = View.VISIBLE
             closeTime.visibility = View.VISIBLE
             buttonSave.visibility = View.INVISIBLE
-        }
-
-        time.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                timePicker.visibility = View.VISIBLE
-                closeTime.visibility = View.VISIBLE
-                buttonSave.visibility = View.INVISIBLE
-            } else {
-                timePicker.visibility = View.INVISIBLE
-                closeTime.visibility = View.INVISIBLE
-                buttonSave.visibility = View.VISIBLE
-            }
+            calendarView.visibility = View.INVISIBLE
         }
 
         timePicker.setOnTimeChangedListener { _, hourOfDay, minute ->
@@ -126,7 +114,8 @@ class EditAppointmentActivity : AppCompatActivity() {
 
         buttonSave.setOnClickListener {
             if (!toothNumber.text.toString().isToothNumberCorrect()) {
-                Toast.makeText(this, getString(R.string.incorrect_tooth_number), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.incorrect_tooth_number), Toast.LENGTH_SHORT)
+                    .show()
             } else if (!date.text.toString().isDateCorrect()) {
                 Toast.makeText(this, getString(R.string.incorrect_date), Toast.LENGTH_SHORT).show()
             } else if (!time.text.toString().isTimeCorrect()) {

@@ -3,6 +3,7 @@ package com.bsuir.dentalcenterapp.screens.appointment
 import android.os.Bundle
 import android.text.InputType
 import android.view.*
+import android.view.View.NOT_FOCUSABLE
 import android.widget.Button
 import android.widget.CalendarView
 import android.widget.EditText
@@ -62,37 +63,25 @@ class AddAppointmentActivity : AppCompatActivity() {
         }
 
         date.inputType = InputType.TYPE_NULL
+        date.focusable = NOT_FOCUSABLE
         time.inputType = InputType.TYPE_NULL
+        time.focusable = NOT_FOCUSABLE
         calendarView.visibility = View.GONE
         timePicker.visibility = View.GONE
         closeTime.visibility = View.GONE
 
-        date.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                calendarView.visibility = View.VISIBLE
-                buttonAdd.visibility = View.INVISIBLE
-            } else {
-                calendarView.visibility = View.INVISIBLE
-                buttonAdd.visibility = View.VISIBLE
-            }
-        }
-
-        time.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                timePicker.visibility = View.VISIBLE
-                closeTime.visibility = View.VISIBLE
-                buttonAdd.visibility = View.INVISIBLE
-            } else {
-                timePicker.visibility = View.INVISIBLE
-                closeTime.visibility = View.INVISIBLE
-                buttonAdd.visibility = View.VISIBLE
-            }
+        date.setOnClickListener {
+            calendarView.visibility = View.VISIBLE
+            buttonAdd.visibility = View.INVISIBLE
+            closeTime.visibility = View.INVISIBLE
+            timePicker.visibility = View.INVISIBLE
         }
 
         time.setOnClickListener {
             timePicker.visibility = View.VISIBLE
             closeTime.visibility = View.VISIBLE
             buttonAdd.visibility = View.INVISIBLE
+            calendarView.visibility = View.INVISIBLE
         }
 
         timePicker.setOnTimeChangedListener { _, hourOfDay, minute ->

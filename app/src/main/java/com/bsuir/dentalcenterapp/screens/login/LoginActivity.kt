@@ -22,7 +22,8 @@ import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
 
-    private val viewModel = MainViewModel
+    private lateinit var login: EditText
+    private lateinit var password: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +33,8 @@ class LoginActivity : AppCompatActivity() {
         toolbar.title = getString(R.string.app_name)
         setSupportActionBar(toolbar)
 
-        val login: EditText = findViewById(R.id.login)
-        val password: EditText = findViewById(R.id.password)
+        login = findViewById(R.id.login)
+        password = findViewById(R.id.password)
         val buttonLogin: Button = findViewById(R.id.buttonLogin)
         val buttonRegister: Button = findViewById(R.id.buttonRegister)
 
@@ -79,6 +80,12 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
             startActivity(intent, null)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        login.setText("")
+        password.setText("")
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
