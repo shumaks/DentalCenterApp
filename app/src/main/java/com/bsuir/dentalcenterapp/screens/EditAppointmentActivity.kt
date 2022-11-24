@@ -54,6 +54,7 @@ class EditAppointmentActivity : AppCompatActivity() {
         time.setText(appointment.time)
         val calendarView: CalendarView = findViewById(R.id.calendarView)
         val timePicker: TimePicker = findViewById(R.id.timePicker)
+        val closeTime: ImageView = findViewById(R.id.closeTime)
 
         calendarView.setOnDateChangeListener { _, _, month, dayOfMonth ->
             val day = if (dayOfMonth < 10) {
@@ -75,6 +76,7 @@ class EditAppointmentActivity : AppCompatActivity() {
         time.inputType = InputType.TYPE_NULL
         calendarView.visibility = View.GONE
         timePicker.visibility = View.GONE
+        closeTime.visibility = View.GONE
 
         date.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
@@ -86,18 +88,42 @@ class EditAppointmentActivity : AppCompatActivity() {
             }
         }
 
+        time.setOnClickListener {
+            timePicker.visibility = View.VISIBLE
+            closeTime.visibility = View.VISIBLE
+            buttonSave.visibility = View.INVISIBLE
+        }
+
         time.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 timePicker.visibility = View.VISIBLE
+                closeTime.visibility = View.VISIBLE
                 buttonSave.visibility = View.INVISIBLE
             } else {
                 timePicker.visibility = View.INVISIBLE
+                closeTime.visibility = View.INVISIBLE
                 buttonSave.visibility = View.VISIBLE
             }
         }
 
         timePicker.setOnTimeChangedListener { _, hourOfDay, minute ->
-            time.setText("$hourOfDay:$minute")
+            val hour = if (hourOfDay < 10) {
+                "0$hourOfDay"
+            } else {
+                hourOfDay
+            }
+            val min = if (minute < 10) {
+                "0$minute"
+            } else {
+                minute
+            }
+            time.setText("$hour:$min")
+        }
+
+        closeTime.setOnClickListener {
+            timePicker.visibility = View.INVISIBLE
+            closeTime.visibility = View.INVISIBLE
+            buttonSave.visibility = View.VISIBLE
         }
 
         buttonSave.setOnClickListener {

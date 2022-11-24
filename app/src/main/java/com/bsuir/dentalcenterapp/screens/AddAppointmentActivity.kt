@@ -6,6 +6,7 @@ import android.view.*
 import android.widget.Button
 import android.widget.CalendarView
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -41,6 +42,7 @@ class AddAppointmentActivity : AppCompatActivity() {
         val buttonAdd: Button = findViewById(R.id.buttonAddAppointment)
         val calendarView: CalendarView = findViewById(R.id.calendarView)
         val timePicker: TimePicker = findViewById(R.id.timePicker)
+        val closeTime: ImageView = findViewById(R.id.closeTime)
 
         calendarView.setOnDateChangeListener { _, _, month, dayOfMonth ->
             val day = if (dayOfMonth < 10) {
@@ -62,6 +64,7 @@ class AddAppointmentActivity : AppCompatActivity() {
         time.inputType = InputType.TYPE_NULL
         calendarView.visibility = View.GONE
         timePicker.visibility = View.GONE
+        closeTime.visibility = View.GONE
 
         date.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
@@ -76,15 +79,39 @@ class AddAppointmentActivity : AppCompatActivity() {
         time.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 timePicker.visibility = View.VISIBLE
+                closeTime.visibility = View.VISIBLE
                 buttonAdd.visibility = View.INVISIBLE
             } else {
                 timePicker.visibility = View.INVISIBLE
+                closeTime.visibility = View.INVISIBLE
                 buttonAdd.visibility = View.VISIBLE
             }
         }
 
+        time.setOnClickListener {
+            timePicker.visibility = View.VISIBLE
+            closeTime.visibility = View.VISIBLE
+            buttonAdd.visibility = View.INVISIBLE
+        }
+
         timePicker.setOnTimeChangedListener { _, hourOfDay, minute ->
-            time.setText("$hourOfDay:$minute")
+            val hour = if (hourOfDay < 10) {
+                "0$hourOfDay"
+            } else {
+                hourOfDay
+            }
+            val min = if (minute < 10) {
+                "0$minute"
+            } else {
+                minute
+            }
+            time.setText("$hour:$min")
+        }
+
+        closeTime.setOnClickListener {
+            timePicker.visibility = View.INVISIBLE
+            closeTime.visibility = View.INVISIBLE
+            buttonAdd.visibility = View.VISIBLE
         }
 
         buttonAdd.setOnClickListener {
