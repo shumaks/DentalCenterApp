@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bsuir.dentalcenterapp.models.appointment.Appointment
+import com.bsuir.dentalcenterapp.utils.toUpdateDate
 import com.itexus.dentalcenterapp.R
 
 class PatientsAppointmentsAdapter(
@@ -38,7 +39,7 @@ class PatientsAppointmentsAdapter(
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.toothNumber.text = "${viewHolder.toothNumber.text} ${dataSet[position].dentNumber}"
         viewHolder.diagnosis.text = "${viewHolder.diagnosis.text} ${dataSet[position].diagnosis}"
-        viewHolder.dateTime.text = "${dataSet[position].date} - ${dataSet[position].time}"
+        viewHolder.dateTime.text = "${dataSet[position].date.take(10).toUpdateDate()} - ${dataSet[position].time}"
         viewHolder.price.text = "${dataSet[position].price} BYN"
     }
 

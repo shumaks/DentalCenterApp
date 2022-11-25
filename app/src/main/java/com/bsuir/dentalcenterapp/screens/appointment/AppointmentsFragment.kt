@@ -78,6 +78,6 @@ class AppointmentsFragment : Fragment() {
 
     private fun List<AppointmentResponseData>.sortByDate(): List<AppointmentResponseData> =
         this.sortedByDescending {
-            it.title.length
+            it.title
         }
 }

@@ -13,3 +13,15 @@ fun String.isDateCorrect(): Boolean = this.length == 10 && this[0].isDigit() && 
 fun String.isTimeCorrect(): Boolean = this.length == 5 && this[0].isDigit() && this[1].isDigit() && this[2] == ':' && this[3].isDigit() && this[4].isDigit()
 
 fun String.isLoginCorrect(): Boolean = !TextUtils.isEmpty(this) && android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
+
+fun String.toUpdateDate(): String {
+    val day = this.drop(8).toInt().inc().toString()
+    val month = this.drop(5).dropLast(3)
+    val year = this.dropLast(6)
+
+    return if (day.length == 1) {
+        "0$day/$month/$year"
+    } else {
+        "$day/$month/$year"
+    }
+}

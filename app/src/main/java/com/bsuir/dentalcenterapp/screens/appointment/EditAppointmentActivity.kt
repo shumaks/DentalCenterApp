@@ -12,6 +12,7 @@ import com.bsuir.dentalcenterapp.screens.MainViewModel
 import com.bsuir.dentalcenterapp.utils.isDateCorrect
 import com.bsuir.dentalcenterapp.utils.isTimeCorrect
 import com.bsuir.dentalcenterapp.utils.isToothNumberCorrect
+import com.bsuir.dentalcenterapp.utils.toUpdateDate
 import com.itexus.dentalcenterapp.R
 import retrofit2.Call
 import retrofit2.Callback
@@ -48,7 +49,7 @@ class EditAppointmentActivity : AppCompatActivity() {
         toothNumber.setText(appointment.dentNumber.toString())
         diagnosis.setText(appointment.diagnosis)
         price.setText(appointment.price.toString())
-        date.setText(appointment.date)
+        date.setText(appointment.date.take(10).toUpdateDate())
         time.setText(appointment.time)
         val calendarView: CalendarView = findViewById(R.id.calendarView)
         val timePicker: TimePicker = findViewById(R.id.timePicker)
