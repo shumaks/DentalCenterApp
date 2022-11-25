@@ -8,8 +8,8 @@ data class Appointment(
     val id: String,
     @SerializedName("patient")
     val patient: Patient,
-    @SerializedName("dentNumber")
-    val dentNumber: Int,
+    @SerializedName("dents")
+    val dentNumber: List<Tooth>,
     @SerializedName("diagnosis")
     val diagnosis: String,
     @SerializedName("price")

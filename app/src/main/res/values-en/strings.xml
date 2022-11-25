@@ -34,7 +34,12 @@
     <string name="incorrect_fullname">Input fullname!</string>
     <string name="incorrect_login">Incorrect login!</string>
     <string name="add_patient">Add patient</string>
+    <string name="incorrect_tooth_number_add">Tooth is already added!</string>
+    <string name="is_repeat">Repeated appointment</string>
+    <string name="incorrect_tooth_size">Too much teeth amount!</string>
     <string name="incorrect_fullname_phone">Incorrect fullname and phone!</string>
+    <string name="incorrect_password">Too little password!</string>
+    <string name="incorrect_tooth_number_2">Input teeth number!</string>
     <string name="appointments_log">Appointments log</string>
     <string name="edit_appointment">Edit appointment</string>
     <string name="edit_patient">Edit patient</string>

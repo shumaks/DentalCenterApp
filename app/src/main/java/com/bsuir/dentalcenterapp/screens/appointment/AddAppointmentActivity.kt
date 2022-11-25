@@ -6,18 +6,22 @@ import android.view.*
 import android.view.View.NOT_FOCUSABLE
 import android.widget.Button
 import android.widget.CalendarView
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.bsuir.dentalcenterapp.App
 import com.bsuir.dentalcenterapp.models.appointment.AppointmentRequest
+import com.bsuir.dentalcenterapp.models.appointment.Tooth
 import com.bsuir.dentalcenterapp.screens.MainViewModel
 import com.bsuir.dentalcenterapp.utils.isDateCorrect
 import com.bsuir.dentalcenterapp.utils.isTimeCorrect
 import com.bsuir.dentalcenterapp.utils.isToothNumberCorrect
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.itexus.dentalcenterapp.R
 import retrofit2.Call
 import retrofit2.Callback
@@ -45,6 +49,11 @@ class AddAppointmentActivity : AppCompatActivity() {
         val calendarView: CalendarView = findViewById(R.id.calendarView)
         val timePicker: TimePicker = findViewById(R.id.timePicker)
         val closeTime: ImageView = findViewById(R.id.closeTime)
+        val textViewTooth: TextView = findViewById(R.id.textViewTooth)
+        val addTeethButton: FloatingActionButton = findViewById(R.id.add_teeth_button)
+        val checkBox: CheckBox = findViewById(R.id.checkBox)
+        val teethList = mutableListOf<Tooth>()
+        var isTextViewToothEmpty = true
 
         calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             val day = if (dayOfMonth < 10) {
@@ -104,9 +113,43 @@ class AddAppointmentActivity : AppCompatActivity() {
             buttonAdd.visibility = View.VISIBLE
         }
 
-        buttonAdd.setOnClickListener {
-            if (!toothNumber.text.toString().isToothNumberCorrect()) {
+
+        addTeethButton.setOnClickListener {
+            var isToothAdd = false
+            teethList.forEach {
+                if (it.number == toothNumber.text.toString().toInt()) {
+                    isToothAdd = true
+                }
+            }
+
+            if (teethList.size == 3) {
+                Toast.makeText(this, getString(R.string.incorrect_tooth_size), Toast.LENGTH_SHORT)
+                    .show()
+            } else if (!toothNumber.text.toString().isToothNumberCorrect()) {
                 Toast.makeText(this, getString(R.string.incorrect_tooth_number), Toast.LENGTH_SHORT)
+                    .show()
+            } else if (isToothAdd) {
+                Toast.makeText(this, getString(R.string.incorrect_tooth_number_add), Toast.LENGTH_SHORT)
+                    .show()
+            } else {
+                if (isTextViewToothEmpty) {
+                    textViewTooth.text = "${textViewTooth.text} ${toothNumber.text}"
+                    isTextViewToothEmpty = false
+                } else {
+                    textViewTooth.text = "${textViewTooth.text}, ${toothNumber.text}"
+                }
+                teethList.add(
+                    Tooth(
+                        toothNumber.text.toString().toInt(),
+                        checkBox.isChecked
+                    )
+                )
+            }
+        }
+
+        buttonAdd.setOnClickListener {
+            if (teethList.isEmpty()) {
+                Toast.makeText(this, getString(R.string.incorrect_tooth_number_2), Toast.LENGTH_SHORT)
                     .show()
             } else if (!date.text.toString().isDateCorrect()) {
                 Toast.makeText(this, getString(R.string.incorrect_date), Toast.LENGTH_SHORT).show()
@@ -117,7 +160,7 @@ class AddAppointmentActivity : AppCompatActivity() {
                     AppointmentRequest(
                         id,
                         App.currentDoctor.id,
-                        toothNumber.text.toString().toInt(),
+                        teethList,
                         diagnosis.text.toString(),
                         price.text.toString().toInt(),
                         date.text.toString(),

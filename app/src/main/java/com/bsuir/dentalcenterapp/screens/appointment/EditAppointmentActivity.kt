@@ -8,11 +8,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.bsuir.dentalcenterapp.models.appointment.Appointment
 import com.bsuir.dentalcenterapp.models.appointment.AppointmentRequest
+import com.bsuir.dentalcenterapp.models.appointment.Tooth
 import com.bsuir.dentalcenterapp.screens.MainViewModel
 import com.bsuir.dentalcenterapp.utils.isDateCorrect
 import com.bsuir.dentalcenterapp.utils.isTimeCorrect
 import com.bsuir.dentalcenterapp.utils.isToothNumberCorrect
 import com.bsuir.dentalcenterapp.utils.toUpdateDate
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.itexus.dentalcenterapp.R
 import retrofit2.Call
 import retrofit2.Callback
@@ -37,6 +39,11 @@ class EditAppointmentActivity : AppCompatActivity() {
         val date: EditText = findViewById(R.id.date)
         val time: EditText = findViewById(R.id.time)
         val buttonSave: Button = findViewById(R.id.buttonSaveAppointment)
+        val textViewTooth: TextView = findViewById(R.id.textViewTooth)
+        val addTeethButton: FloatingActionButton = findViewById(R.id.add_teeth_button)
+        val checkBox: CheckBox = findViewById(R.id.checkBox)
+        val teethList = mutableListOf<Tooth>()
+        var isTextViewToothEmpty = true
 
         lateinit var appointment: Appointment
         MainViewModel.getAppointments().forEach {
@@ -46,7 +53,15 @@ class EditAppointmentActivity : AppCompatActivity() {
                 }
             }
         }
-        toothNumber.setText(appointment.dentNumber.toString())
+        teethList.addAll(appointment.dentNumber)
+        teethList.forEach {
+            if (isTextViewToothEmpty) {
+                textViewTooth.text = "${textViewTooth.text} ${it.number}"
+                isTextViewToothEmpty = false
+            } else {
+                textViewTooth.text = "${textViewTooth.text}, ${it.number}"
+            }
+        }
         diagnosis.setText(appointment.diagnosis)
         price.setText(appointment.price.toString())
         date.setText(appointment.date.take(10).toUpdateDate())
@@ -113,9 +128,37 @@ class EditAppointmentActivity : AppCompatActivity() {
             buttonSave.visibility = View.VISIBLE
         }
 
-        buttonSave.setOnClickListener {
-            if (!toothNumber.text.toString().isToothNumberCorrect()) {
+        addTeethButton.setOnClickListener {
+            var isToothAdd = false
+            teethList.forEach {
+                if (it.number == toothNumber.text.toString().toInt()) {
+                    isToothAdd = true
+                }
+            }
+
+            if (teethList.size == 3) {
+                Toast.makeText(this, getString(R.string.incorrect_tooth_size), Toast.LENGTH_SHORT)
+                    .show()
+            } else if (!toothNumber.text.toString().isToothNumberCorrect()) {
                 Toast.makeText(this, getString(R.string.incorrect_tooth_number), Toast.LENGTH_SHORT)
+                    .show()
+            } else if (isToothAdd) {
+                Toast.makeText(this, getString(R.string.incorrect_tooth_number_add), Toast.LENGTH_SHORT)
+                    .show()
+            } else {
+                textViewTooth.text = "${textViewTooth.text}, ${toothNumber.text}"
+                teethList.add(
+                    Tooth(
+                        toothNumber.text.toString().toInt(),
+                        checkBox.isChecked
+                    )
+                )
+            }
+        }
+
+        buttonSave.setOnClickListener {
+            if (teethList.isEmpty()) {
+                Toast.makeText(this, getString(R.string.incorrect_tooth_number_2), Toast.LENGTH_SHORT)
                     .show()
             } else if (!date.text.toString().isDateCorrect()) {
                 Toast.makeText(this, getString(R.string.incorrect_date), Toast.LENGTH_SHORT).show()
@@ -127,7 +170,7 @@ class EditAppointmentActivity : AppCompatActivity() {
                     AppointmentRequest(
                         appointment.patient.id,
                         appointment.doctor,
-                        toothNumber.text.toString().toInt(),
+                        teethList,
                         diagnosis.text.toString(),
                         price.text.toString().toInt(),
                         date.text.toString(),

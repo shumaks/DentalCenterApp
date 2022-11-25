@@ -27,11 +27,16 @@
 
     <string name="add_appointment">Добавить прием</string>
     <string name="incorrect_tooth_number">Некорректный номер зуба!</string>
+    <string name="incorrect_tooth_number_add">Зуб уже добавлен!</string>
+    <string name="incorrect_tooth_size">Слишком много зубов!</string>
+    <string name="is_repeat">Повторный приём</string>
+    <string name="incorrect_tooth_number_2">Введите номер зуба!</string>
     <string name="incorrect_date">Некорректная дата!</string>
     <string name="incorrect_time">Некорректное время!</string>
     <string name="incorrect_data">Некорректные данные!</string>
     <string name="incorrect_login">Некорректный логин!</string>
     <string name="incorrect_fullname">Введите имя и фамилию!</string>
+    <string name="incorrect_password">Слишком короткий пароль!</string>
     <string name="add_patient">Добавить пациента</string>
     <string name="incorrect_fullname_phone">Некорректные фамилия, имя или номер телефона!</string>
     <string name="appointments_log">Журнал приёмов</string>

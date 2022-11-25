@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.bsuir.dentalcenterapp.screens.MainViewModel
+import com.bsuir.dentalcenterapp.utils.isDatePast
 import com.itexus.dentalcenterapp.R
 import java.text.SimpleDateFormat
 import java.util.*
@@ -59,17 +60,34 @@ class FormulaActivity : AppCompatActivity() {
         )
 
         val id = intent.getStringExtra("id")!!
-        val pattern = "MM.dd"
-        val simpleDateFormat = SimpleDateFormat(pattern)
-        val calendar = Calendar.getInstance()
-        val date = simpleDateFormat.format(calendar.time)
 
         MainViewModel.getAppointments().forEach {
+            val repeatedPastList = mutableListOf<Int>()
+
             it.data.forEach { appointment ->
-                if (appointment.patient.id == id && date > appointment.date) {
-                    textViewList.forEach { textView ->
-                        if (textView.text.toString().toInt() == appointment.dentNumber) {
-                            textView.setTextColor(Color.RED)
+                if (appointment.patient.id == id) {
+                    appointment.dentNumber.forEach {
+                        textViewList.forEach { textView ->
+                            if (textView.text.toString().toInt() == it.number) {
+                                if (it.isRepeat) {
+                                    if (isDatePast(appointment.date.take(10))) {
+                                        if (!repeatedPastList.contains(it.number)) {
+                                            textView.setTextColor(Color.YELLOW)
+                                            repeatedPastList.add(it.number)
+                                        } else {
+                                            textView.setTextColor(Color.GREEN)
+                                        }
+                                    } else {
+                                        textView.setTextColor(Color.RED)
+                                    }
+                                } else {
+                                    if (isDatePast(appointment.date.take(10))) {
+                                        textView.setTextColor(Color.GREEN)
+                                    } else {
+                                        textView.setTextColor(Color.RED)
+                                    }
+                                }
+                            }
                         }
                     }
                 }

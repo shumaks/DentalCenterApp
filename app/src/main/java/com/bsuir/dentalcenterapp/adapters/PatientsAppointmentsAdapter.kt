@@ -37,7 +37,15 @@ class PatientsAppointmentsAdapter(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.toothNumber.text = "${viewHolder.toothNumber.text} ${dataSet[position].dentNumber}"
+        var isEmpty = true
+        dataSet[position].dentNumber.forEach {
+            if (isEmpty) {
+                viewHolder.toothNumber.text = "${viewHolder.toothNumber.text} ${it.number}"
+                isEmpty = false
+            } else {
+                viewHolder.toothNumber.text = "${viewHolder.toothNumber.text}, ${it.number}"
+            }
+        }
         viewHolder.diagnosis.text = "${viewHolder.diagnosis.text} ${dataSet[position].diagnosis}"
         viewHolder.dateTime.text = "${dataSet[position].date.take(10).toUpdateDate()} - ${dataSet[position].time}"
         viewHolder.price.text = "${dataSet[position].price} BYN"
