@@ -60,9 +60,9 @@ class FormulaActivity : AppCompatActivity() {
         )
 
         val id = intent.getStringExtra("id")!!
+        val repeatedPastList = mutableListOf<Int>()
 
         MainViewModel.getAppointments().forEach {
-            val repeatedPastList = mutableListOf<Int>()
 
             it.data.forEach { appointment ->
                 if (appointment.patient.id == id) {

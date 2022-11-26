@@ -1,8 +1,10 @@
 package com.bsuir.dentalcenterapp.screens.appointment
 
+import android.content.Context
 import android.os.Bundle
 import android.text.InputType
 import android.view.*
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -95,6 +97,10 @@ class EditAppointmentActivity : AppCompatActivity() {
         closeTime.visibility = View.GONE
 
         date.setOnClickListener {
+            this.currentFocus?.let { view ->
+                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+                imm?.hideSoftInputFromWindow(view.windowToken, 0)
+            }
             calendarView.visibility = View.VISIBLE
             buttonSave.visibility = View.INVISIBLE
             closeTime.visibility = View.INVISIBLE
@@ -102,6 +108,10 @@ class EditAppointmentActivity : AppCompatActivity() {
         }
 
         time.setOnClickListener {
+            this.currentFocus?.let { view ->
+                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+                imm?.hideSoftInputFromWindow(view.windowToken, 0)
+            }
             timePicker.visibility = View.VISIBLE
             closeTime.visibility = View.VISIBLE
             buttonSave.visibility = View.INVISIBLE

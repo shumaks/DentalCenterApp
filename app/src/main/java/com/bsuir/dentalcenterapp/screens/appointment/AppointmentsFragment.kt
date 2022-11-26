@@ -78,6 +78,7 @@ class AppointmentsFragment : Fragment() {
 
     private fun List<AppointmentResponseData>.sortByDate(): List<AppointmentResponseData> =
         this.sortedByDescending {
-            it.title
+            val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+            LocalDate.parse(it.title, dateTimeFormatter)
         }
 }
