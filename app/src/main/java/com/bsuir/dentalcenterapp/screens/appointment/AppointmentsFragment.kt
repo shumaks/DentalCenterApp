@@ -69,7 +69,12 @@ class AppointmentsFragment : Fragment() {
                     container.titlesContianer.children.map { it as TextView }
                         .forEachIndexed { index, textView ->
                             val dayOfWeek = daysOfWeek()[index]
-                            val title = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault())
+                            val locale = if (getString(R.string.lang) == "RU") {
+                                Locale.getDefault()
+                            } else {
+                                Locale.ENGLISH
+                            }
+                            val title = dayOfWeek.getDisplayName(TextStyle.SHORT, locale)
                             textView.text = title
                         }
                 }
