@@ -40,7 +40,7 @@ class RegisterActivity : AppCompatActivity() {
             } else if (password.text.toString().length < 5) {
                 Toast.makeText(
                     applicationContext,
-                    getString(R.string.incorrect_fullname),
+                    getString(R.string.incorrect_password),
                     Toast.LENGTH_SHORT
                 ).show()
             } else if (fullname.text.toString().isEmpty()) {

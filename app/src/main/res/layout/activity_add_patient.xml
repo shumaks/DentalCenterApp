@@ -39,6 +39,7 @@
             android:layout_height="wrap_content"
             android:maxLength="20"
             android:fontFamily="serif"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
             android:hint="@string/fullname"
             android:inputType="textPersonName"
             android:textCursorDrawable="@color/black" />
@@ -60,6 +61,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="serif"
             android:maxLength="20"
+            android:digits="+1234567890"
             android:hint="@string/phone"
             android:inputType="phone"
             android:textColor="@color/black"

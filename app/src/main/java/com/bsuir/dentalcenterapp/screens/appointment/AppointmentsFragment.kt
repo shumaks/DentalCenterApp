@@ -44,6 +44,7 @@ class AppointmentsFragment : Fragment() {
         val toolbar: Toolbar = root.findViewById(R.id.toolbar) as Toolbar
         toolbar.title = getString(R.string.appointments_log)
         (activity as AppointmentActivity).setSupportActionBar(toolbar)
+        (activity as AppointmentActivity).supportActionBar?.show()
 
         recyclerView = root.findViewById(R.id.appointments_recycler_view)
         calendarView = root.findViewById(R.id.calendarView)
@@ -116,6 +117,7 @@ class AppointmentsFragment : Fragment() {
             }
 
         MainViewModel.appointmentsLiveData.observe(this) {
+            (activity as AppointmentActivity).supportActionBar?.show()
             val filteredAppointments = mutableListOf<AppointmentResponseData>()
             it.sortByDate().forEach { response ->
                 response.copy(data = response.data.filter {
