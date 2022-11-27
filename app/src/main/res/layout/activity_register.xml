@@ -71,6 +71,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="serif"
             android:ems="10"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
             android:maxLength="24"
             android:hint="@string/fullname"
             android:inputType="textPersonName"
