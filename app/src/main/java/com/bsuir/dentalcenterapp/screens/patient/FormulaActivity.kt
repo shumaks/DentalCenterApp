@@ -62,15 +62,15 @@ class FormulaActivity : AppCompatActivity() {
         val id = intent.getStringExtra("id")!!
         val repeatedPastList = mutableListOf<Int>()
 
-        MainViewModel.getAppointments().forEach {
+        MainViewModel.getAppointments().forEach { response ->
 
-            it.data.forEach { appointment ->
+            response.data.forEach { appointment ->
                 if (appointment.patient.id == id) {
                     appointment.dentNumber.forEach {
                         textViewList.forEach { textView ->
                             if (textView.text.toString().toInt() == it.number) {
                                 if (it.isRepeat) {
-                                    if (isDatePast(appointment.date.take(10))) {
+                                    if (isDatePast(response.title)) {
                                         if (!repeatedPastList.contains(it.number)) {
                                             textView.setTextColor(Color.YELLOW)
                                             repeatedPastList.add(it.number)
@@ -81,7 +81,7 @@ class FormulaActivity : AppCompatActivity() {
                                         textView.setTextColor(Color.RED)
                                     }
                                 } else {
-                                    if (isDatePast(appointment.date.take(10))) {
+                                    if (isDatePast(response.title)) {
                                         textView.setTextColor(Color.GREEN)
                                     } else {
                                         textView.setTextColor(Color.RED)

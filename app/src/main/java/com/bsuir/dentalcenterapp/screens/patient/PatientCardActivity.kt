@@ -17,6 +17,7 @@ import com.bsuir.dentalcenterapp.models.patient.Patient
 import com.bsuir.dentalcenterapp.screens.MainViewModel
 import com.bsuir.dentalcenterapp.screens.appointment.AddAppointmentActivity
 import com.bsuir.dentalcenterapp.adapters.PatientsAppointmentsAdapter
+import com.bsuir.dentalcenterapp.models.appointment.AppointmentResponseData
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.itexus.dentalcenterapp.R
 import retrofit2.Call
@@ -112,11 +113,14 @@ class PatientCardActivity : AppCompatActivity() {
         MainViewModel.observeAppointments()
 
         MainViewModel.appointmentsLiveData.observe(this) {
-            val appointments = mutableListOf<Appointment>()
-            MainViewModel.getAppointments().forEach {
-                it.data.forEach {
+            val appointments = mutableListOf<AppointmentResponseData>()
+            MainViewModel.getAppointments().forEach { response ->
+                response.data.forEach {
                     if (it.patient.id == id && it.doctor == App.currentDoctor.id) {
-                        appointments.add(it)
+                        appointments.add(AppointmentResponseData(
+                            response.title,
+                            listOf(it)
+                        ))
                     }
                 }
             }

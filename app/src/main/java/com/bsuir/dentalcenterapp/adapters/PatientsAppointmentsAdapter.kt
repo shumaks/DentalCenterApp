@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bsuir.dentalcenterapp.models.appointment.Appointment
+import com.bsuir.dentalcenterapp.models.appointment.AppointmentResponseData
 import com.bsuir.dentalcenterapp.utils.toUpdateDate
 import com.itexus.dentalcenterapp.R
 
 class PatientsAppointmentsAdapter(
-    private val dataSet: List<Appointment>
+    private val dataSet: List<AppointmentResponseData>
 ) : RecyclerView.Adapter<PatientsAppointmentsAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -38,7 +39,7 @@ class PatientsAppointmentsAdapter(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         var isEmpty = true
-        dataSet[position].dentNumber.forEach {
+        dataSet[position].data.first().dentNumber.forEach {
             if (isEmpty) {
                 viewHolder.toothNumber.text = "${viewHolder.toothNumber.text} ${it.number}"
                 isEmpty = false
@@ -46,9 +47,9 @@ class PatientsAppointmentsAdapter(
                 viewHolder.toothNumber.text = "${viewHolder.toothNumber.text}, ${it.number}"
             }
         }
-        viewHolder.diagnosis.text = "${viewHolder.diagnosis.text} ${dataSet[position].diagnosis}"
-        viewHolder.dateTime.text = "${dataSet[position].date.take(10).toUpdateDate()} - ${dataSet[position].time}"
-        viewHolder.price.text = "${dataSet[position].price} BYN"
+        viewHolder.diagnosis.text = "${viewHolder.diagnosis.text} ${dataSet[position].data.first().diagnosis}"
+        viewHolder.dateTime.text = "${dataSet[position].title} - ${dataSet[position].data.first().time}"
+        viewHolder.price.text = "${dataSet[position].data.first().price} BYN"
     }
 
     override fun getItemCount() = dataSet.size

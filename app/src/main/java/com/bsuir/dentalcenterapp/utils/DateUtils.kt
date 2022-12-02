@@ -9,5 +9,5 @@ fun isDatePast(date: String): Boolean {
     val calendar = Calendar.getInstance()
     val currentDate = format.format(calendar.time)
 
-    return date.toUpdateDate() < currentDate
+    return date < currentDate
 }
